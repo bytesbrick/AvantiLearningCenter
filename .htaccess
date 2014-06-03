@@ -1,0 +1,34 @@
+Options +FollowSymlinks
+RewriteEngine on
+#RewriteCond %{HTTP_HOST} ^www.peerlearning.com\ [NC] 
+#RewriteRule ^(.*)$ http://www.peerlearning.com/$1 [L,R=301] 
+RewriteCond %{HTTP_HOST} ^localhost:8080\ [NC] 
+RewriteRule ^(.*)$ http://localhost:8080/avanti/$1 [L,R=301]
+#RewriteCond %{HTTP_HOST} ^http://bytesbrick.com/app-test/avanti\ [NC] 
+#RewriteRule ^(.*)$ http://bytesbrick.com/app-test/avanti/$1 [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+#RewriteRule (.*)$ http://bytesbrick.com/app-test/avanti/$1 [R=301,L]
+RewriteRule (.*)$ http://localhost:8080/avanti/$1/ [R=301,L]
+
+
+
+# --- Rules for PeerLearning ----
+
+RewriteRule ^logout/$ logout.php [L,QSA]
+RewriteRule ^password/$ password-change.php [L,QSA]
+RewriteRule ^page-not-found/$ 404.php [L,QSA]
+RewriteRule ^lesson-plan/$ lessonplan.php [L,QSA]
+RewriteRule ^topics-completed/$ topicscompleted.php [L,QSA]
+RewriteRule ^topics-starred/$ topicstarred.php [L,QSA]
+RewriteRule ^page-redirect/$ redirection.php [L,QSA]
+RewriteRule ^batches/$ select-batch.php [L,QSA]
+
+RewriteRule ^admin/$ admin/index.php [L,QSA]
+
+RewriteRule ^([^/]+)/$ chapter-list.php?currslug=$1 [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/$ topic-list.php?currslug=$1&catgslug=$2&chpslug=$3 [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ resource-detail.php?currslug=$1&catgslug=$2&chpslug=$3&topicslug=$4 [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/([^/]+)/([^/]+)/$ resource-detail.php?currslug=$1&catgslug=$2&chpslug=$3&topicslug=$4&itemslug=$5 [L,QSA]
