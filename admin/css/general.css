@@ -1,0 +1,49 @@
+/*#backgroundPopup {
+    background: none repeat scroll 0 0 #000000;
+    border: 1px solid #CECECE;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}*/
+#popupContact{
+display:none;
+position:absolute;
+_position:absolute; /* hack for internet explorer 6*/
+background:#fff;
+border:5px solid #fff;
+z-index:1005;
+font-size:13px;
+}
+
+/*#forgotpassword{
+display:none;
+position:absolute;
+_position:absolute; /* hack for internet explorer 6*/
+/*width:405px;*/
+/*background:#fff;
+border:5px solid #c4e4e7;
+z-index:1005;
+font-size:13px;
+}*/
+
+#popupContactClose
+{	
+    background-repeat:no-repeat;
+    font-size:20px;
+    line-height:16px;
+    right:-13px;
+    top:-12px;
+    position:absolute;
+    font-weight:bold;
+    display:block;
+    border-radius: 12px;
+    padding: 0px 0px 0px 2px;
+    cursor:pointer;
+    background: #F7D79A;
+    color: #a74242 !important;
+    padding: 1px 5px 4px 5px;
+}

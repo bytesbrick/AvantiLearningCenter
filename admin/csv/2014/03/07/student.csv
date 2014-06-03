@@ -1,0 +1,6 @@
+student_id,student_name,email_id,phone,address,school,board,status,gender,batch_id
+MU01140121,Anas,anas@bytesbrick.com,12344,New Delhi,DPS,CBSE,1,1,1
+MU01140122,Shariq Imroz,shariq@bytesbrick.com,4321,Mumbai,APJ,ICSE,1,1,1
+MU01140123,Kashif,kashif@bytesbrick.com,899898,Jaipur,DPS,ICSE,1,1,1
+MU01140124,Priya,priya@bytesbrick.com,8765432,Mumbai,DPS,CBSE,0,2,1
+MU01140125,Faseeh Aamir,aamir@bytesbrick.com,8765432,New Delhi,MS Creative,CBSE,1,1,1

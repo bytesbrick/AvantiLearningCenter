@@ -1,0 +1,1 @@
+<?php echo "shariq" . $_POST['txtintro']; ?>
