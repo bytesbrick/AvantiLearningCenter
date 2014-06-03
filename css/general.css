@@ -1,0 +1,62 @@
+#backgroundPopup {
+    background: none repeat scroll 0 0 #000000;
+    border: 1px solid #CECECE;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+#popupContact{
+display:none;
+position:absolute;
+_position:absolute; /* hack for internet explorer 6*/
+width:405px;
+background:#fff;
+border:5px solid #c4e4e7;
+z-index:1005;
+font-size:13px;
+}
+
+#forgotpassword{
+display:none;
+position:absolute;
+_position:absolute; /* hack for internet explorer 6*/
+width:485px;
+background:#fff;
+border:5px solid #c4e4e7;
+z-index:1005;
+font-size:13px;
+}
+#popupContact h1
+{
+	text-align:left;
+	color:#000;
+	width:150px;
+	font-weight:bold;
+	font-family:Arial;
+	font-size:23px;
+	font-weight:700;
+	padding-bottom:2px;
+	margin-bottom:20px;
+}
+#popupContactClose
+{	
+	background-image:url("../images/wholebtn.png");
+	background-repeat:no-repeat;
+	font-size:20px;
+	line-height:16px;
+	right:10px;
+	top:15px;
+	width:13px;
+	height:18px;
+	font-family:Arial;
+	position:absolute;
+	font-weight:bold;
+	display:block;
+	padding: 0px 0px 0px 2px;
+	cursor:pointer;
+	background: #fff;
+}
