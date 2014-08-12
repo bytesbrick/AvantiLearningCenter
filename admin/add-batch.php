@@ -76,8 +76,8 @@
 											<option value="<?php echo $selcur[$i]["unique_id"]; ?>"><?php echo $selcur[$i]["curriculum_name"]; ?></option>
 									<?php
 										}
-										unset($selcur);
-									?>
+										unset($selcur); 
+									?> 
 									</select>
 								</td>
 							</tr>
@@ -96,7 +96,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="chaptertext">Strength</td>
+								<td class="chaptertext">Strength</td>     
 								<td>
 									<input type="text" name="txtstrength"  placeholder="Strength"  id="txtstrength" class="inputseacrh mt10" maxlength="3" onkeypress="javascript: return _allowNumeric(event);" />
 								</td>
