@@ -134,7 +134,7 @@
             <?php
                 }
             ?>
-            <th>Topic Count</th>
+            <th>Options</th>
         </tr>
     </thead>
 <?php
@@ -161,30 +161,22 @@
                 $topicCount = $topic[0]["Topics"];
         unset($topic);
 ?>
-    <tr class="<?php echo $class; ?>" id="chpdatarow-<?php echo $i; ?>">
+    <tr class="<?php echo $class; ?>" id="chpdatarow-<?php echo $r[$i]["unique_id"]; ?>">
         <td>
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td><input class="fl" type="checkbox" name="chkChapter[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" /></td>
-                    <td>
-                        <div class="multimenu ml10 mr10"><img src="./images/options.png" title="More actions" />
-                            <div class="cb"></div>
-                            <label>
-                                <ul>
-                                    <li class="settings p1"><a href="edit-chapter.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "catgid", "chptid","page","resp"), array($r[$i]["curid"], $r[$i]["category_id"], $r[$i]["unique_id"],$curPage,"")); ?>">Edit</a></li>
-                                    <li class="settings p2"><a href="javascript:void(0);" onclick="javascript:_deletechapter(<?php echo $r[$i]["curid"]; ?>,<?php echo $i; ?>,<?php echo $catgid; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a></li>
-                                    <li class="settings p3"><a href="topic.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "catgid", "chptid", "resp"), array($r[$i]["curid"], $r[$i]["category_id"], $r[$i]["unique_id"], "")); ?>">Topics (<?php echo $topicCount; ?>)</a></li>
-                                </ul>
-                            </label>
-                        </div>
-                    </td>
+                    <td><input class="fl" type="checkbox" name="chkChapter[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" /></td>
                 </tr>
             </table>
         </td>
         <td><?php echo $r[$i]["category_name"]; ?></td>
         <td><?php echo $r[$i]["chapter_name"]; ?></td>
         <td><?php echo $r[$i]["chapter_code"]; ?></td>
-        <td><?php echo $topicCount; ?></td>
+        <td>
+            <a href="edit-chapter.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "catgid", "chptid","page","resp"), array($r[$i]["curid"], $r[$i]["category_id"], $r[$i]["unique_id"],$curPage,"")); ?>" class="ftblack">Edit</a> | 
+            <a href="javascript:void(0);" onclick="javascript:_deletechapter(<?php echo $r[$i]["curid"]; ?>,<?php echo $i; ?>,<?php echo $catgid; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a> |
+            <a href="topic.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "catgid", "chptid", "resp"), array($r[$i]["curid"], $r[$i]["category_id"], $r[$i]["unique_id"], "")); ?>" class="ftblack">Topics</a> (<?php echo $topicCount; ?>)
+        </td>
     </tr>
 <?php
         }   
