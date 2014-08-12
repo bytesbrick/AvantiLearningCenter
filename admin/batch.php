@@ -32,6 +32,12 @@
 	$limitEnd = $recPerpage;
 ?>
 <script type="text/javascript" language="javascript" src="./javascript/batch.js"></script>
+<script type="text/javascript" src="./javascript/jquery.js"></script>
+<!--  For Calender -->
+<link rel="stylesheet" href="./css/jquery.ui.datepicker.css" />
+<link rel="stylesheet" href="./css/jquery.ui.theme.css" />
+<script src="./javascript/jquery.ui.core.js" type="text/javascript"></script>
+<script src="./javascript/jquery.ui.datepicker.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="page">
@@ -45,7 +51,7 @@
 			</div><!-- End of header -->
 			<div id="container">
 				<div class="about">Batches <!--(<?php //echo $recCount; ?>)--></div>
-				<div class="act"><a href="add-batch.php">Add Batch</a><div id="bulkAct"><a href="javascript:void(0);" id="btnDel" onclick="javascript: _deletebatch(-1,<?php echo $curPage; ?>);" class="ml5">Delete</a></div></div><!-- End of about -->
+				<div class="fl mt10" style="width:100%;"><div class="act"><a href="add-batch.php">Add Batch</a><div id="bulkAct"><a href="javascript:void(0);" id="btnDel" onclick="javascript: _deletebatch(-1,<?php echo $curPage; ?>);" class="ml5">Delete</a></div></div><!-- End of about -->
 				<?php if(isset($_SESSION["resp"]) && $_SESSION["resp"] !="")
 				{
 				?>
@@ -80,6 +86,7 @@
 				<?php
 				}
 				?><!-- end of ErrMsg -->
+				</div>
 				<div id="displayUser"></div><!-- end of displayUser -->
 				<div id="disableDiv"><div id="disableText"><br /><br /><img src="./images/avn-loader.gif" /><br />Loading...</div></div>
 			</div><!-- end of container -->
