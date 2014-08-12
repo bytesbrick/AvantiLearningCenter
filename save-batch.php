@@ -1,11 +1,11 @@
 <?php
-    if(isset($_POST["btnsubmit"]) && $_POST["btnsubmit"] != ""){
+    
         include_once("./includes/config.php");  
         include("./classes/cor.mysql.class.php");
         include_once("./includes/checklogin.php");
         $db = new MySqlConnection(CONNSTRING);
         $db->open();
-        $selCurrID = "SELECT curriculum_id FROM avn_batch_master WHERE unique_id = " . $_POST["ddlbatch"];
+        $selCurrID = "SELECT curriculum_id FROM avn_batch_master WHERE unique_id = " . $_REQUEST["ddlbatch"];
         $selCurridRS = $db->query("query", $selCurrID);
         if(!array_key_exists("response", $selCurridRS)){
             $CurrID = $selCurridRS[0]["curriculum_id"];
@@ -15,7 +15,7 @@
                 $CurrSlug = $selCurrslugRS[0]["curriculum_slug"];
             }
 	    unset($selCurrslugRS);
-            $batchID = $_POST["ddlbatch"];
+            $batchID = $_REQUEST["ddlbatch"];
             $selBatchid = "SELECT batch_id FROM avn_batch_master WHERE unique_id = " . $batchID;
             $selBatchidRS = $db->query("query", $selBatchid);
             if(!array_key_exists("response", $selCurrslugRS)){
@@ -24,17 +24,19 @@
 	    unset($selBatchidRS);
             $userInfo = $_COOKIE["userInfo"];
             $cookieData = $db->_decrypt($userInfo, ENCKEY);
+	    
             $arrUserInfo = unserialize($cookieData);
-            
             $new_array = array('curriculum_id'=>$CurrID ,'curriculum_slug'=>$CurrSlug,'batch_id'=>$Batch);
             $a= array_merge($arrUserInfo, $new_array);
+	    //echo $a;
             $cookieData = $a;
             $encCData = $db->_encrypt(serialize($cookieData), ENCKEY);
 	    setcookie("userInfo", $encCData, time() + (24 * 60 * 60), "/");
             $fURL = __WEBROOT__ . "/lesson-plan/";
         }
+	else
+	    $fURL =  __WEBROOT__ . "/page-not-found/?2";
 	unset($selCurridRS);
         $db->close();
         header('Location: ' . $fURL);
-    }
 ?>
