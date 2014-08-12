@@ -9,11 +9,11 @@
 		
 		$uniqueid = $_POST["uniqueid"];
 		$page= $_POST["page"];
-		$status= $_POST["action"];
+		$status= $_POST["status"];
 		if(strpos($uniqueid, ",") === false){
-			if(isset($status) && $status == "statusactive")
+			if(isset($status) && $status == 0)
 			$newstatus = 1;
-			if(isset($status) && $status == "statusinactive")
+			if(isset($status) && $status == 1)
 				$newstatus = 0;
 			$dataToSave = array();
 			$dataToSave['status'] = $newstatus;
@@ -44,9 +44,9 @@
 			$allUID = explode(",", $uniqueid);
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
-					if(isset($status) && $status == "statusactive")
+					if(isset($status) && $status == 0)
 						$newstatus = 1;
-					if(isset($status) && $status == "statusinactive")
+					if(isset($status) && $status == 1)
 						$newstatus = 0;
 					$dataToSave = array();
 					$dataToSave['status'] = $newstatus;
@@ -78,6 +78,6 @@
 		$db->close();
 	}
 	else
-		$resp = "0";
-	echo $resp. "|#|" . $page;
+		$resp = 0;
+	echo $resp. "|#|" . $page . "|#|" . $_POST["rid"];
 ?>
