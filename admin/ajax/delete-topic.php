@@ -11,17 +11,12 @@
 		$page = $_POST["page"];
 		$currid = $_POST["currid"];
 		
-		$wheretodelete  = array();
-		$wheretodelete["unique_id"] = $uId;
+		
 		$selpr = $db->query("query","SELECT topic_priority FROM avn_topic_master WHERE unique_id = " . $uId);
-		$priority = $selpr[0]["topic_priority"];
-		$topic = $db->query("query","SELECT unique_id from ltf_resources_master where topic_id = " . $uId);
-		$resid = $topic[0]['unique_id'];
-		$wheretores = array();
-		$wheretores["unique_id"]= $resid;		
+		$priority = $selpr[0]["topic_priority"];		
 		$wheretomap = array();
 		$wheretomap["topic_id"]= $uId  ;
-		$getres = $db->query("query","SELECT * FROM avn_resources_detail WHERE resource_id = " . $resid . " AND topic_id = " . $uId);
+		$getres = $db->query("query","SELECT * FROM avn_resources_detail WHERE topic_id = " . $uId);
 		if(!array_key_exists("response",$getres)){
 			if(!$getres["response"] == "ERROR"){
 				$resp = 2;
@@ -45,24 +40,25 @@
 						unset($arrToUpdate);
 					}
 				}
-				
-					$resgrade = $db->delete("avn_topic_grades", $wheretomap);
-					if($resgrade["response"] == "SUCCESS"){
-						$restag = $db->delete("avn_topic_tags", $wheretomap);
-						if($restag["response"] == "SUCCESS"){
-							$t = $db->delete("avn_topic_master", $wheretodelete);
-							if($t["response"] == "SUCCESS")
-								$resp = 1;
-							else
-								$resp = 3;
-							unset($t);
-						}else
-							$resp = 5;
-						unset($restag);
+				$resgrade = $db->delete("avn_topic_grades", $wheretomap);
+				if($resgrade["response"] == "SUCCESS"){
+					$restag = $db->delete("avn_topic_tags", $wheretomap);
+					if($restag["response"] == "SUCCESS"){
+						$wheretodelete  = array();
+						$wheretodelete["unique_id"] = $uId;
+						$t = $db->delete("avn_topic_master", $wheretodelete);
+						if($t["response"] == "SUCCESS")
+							$resp = 1;
+						else
+							$resp = 3;
+						unset($t);
+						unset($wheretodelete);
 					}else
-						$resp = 6;
-					unset($resgrade);
-				
+						$resp = 5;
+					unset($restag);
+				}else
+					$resp = 6;
+				unset($resgrade);
 			}
 			else{
 				$allUID = explode(",", $uId);
@@ -84,15 +80,11 @@
 							}
 						} 
 						$wheretodelete  = array();
-						$wheretodelete["unique_id"] = $uId;
-						$topic = $db->query("query","SELECT unique_id from ltf_resources_master where topic_id = " . $allUID[$i]);
-						$resid = $topic[0]['unique_id'];
-						$wheretores = array();
-						$wheretores["unique_id"]= $resid;		
+						$wheretodelete["unique_id"] = $allUID[$i];		
 						$wheretomap = array();
 						$wheretomap["topic_id"]= $uId;
 						
-						$getres = $db->query("query","SELECT * FROM avn_resources_detail WHERE resource_id = " . $resid . " AND topic_id = " . $allUID[$i]);
+						$getres = $db->query("query","SELECT * FROM avn_resources_detail WHERE topic_id = " . $allUID[$i]);
 						if(!array_key_exists("response",$getres)){
 							if(!$getres["response"] == "ERROR"){
 								$resp = 8;
@@ -127,5 +119,5 @@
 	}
 	else
 		$resp = 0;
-	echo $resp . "|#|" . $currid . "|#|" . $chptid . "|#|" . $catgid . "|#|" . $page;
+	echo 10 . "|#|" . $currid . "|#|" . $chptid . "|#|" . $catgid . "|#|" . $page . "|#|" . $uId;
 ?>

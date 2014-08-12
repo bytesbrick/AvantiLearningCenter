@@ -12,20 +12,27 @@
 			$dataToWhere = array();
 			$dataToWhere['unique_id'] = $uId;
 			$r = $db->delete("avn_teacher_master",$dataToWhere);
+			if($r["response"] == "SUCCESS"){
+				$dataToWherelogin = array();
+				$dataToWherelogin['user_ref_id'] = $uId;
+				$login = $db->delete("avn_login_master",$dataToWherelogin);
+				
+				if($login["response"] == "SUCCESS"){
+					$dataToWhereadmin = array();
+					$dataToWhereadmin["user_ref_id"] = $uId;
+					$loginadmin = $db->delete("ltf_admin_usermaster",$dataToWhereadmin);
+					if($loginadmin["response"] == "SUCCESS")
+						$resp = 1;
+					else
+						$resp = 2;
+					unset($loginadmin);
+					unset($dataToWhereadmin);
+				}
+				unset($login);
+				unset($dataToWherelogin);
+			}
 			unset($r);
 			unset($dataToWhere);
-			
-			$dataToWhere = array();
-			$dataToWhere['user_ref_id'] = $uId;
-			$r = $db->delete("avn_login_master",$dataToWhere);
-			unset($r);
-			unset($dataToWhere);
-			if($r["response"] == "SUCCESS")
-				$resp = 1;
-			else
-				$resp = 2;
-			unset($dataToWhere);
-			unset($r);
 		}
 		else{
 			$allUID = explode(",", $uId);
@@ -34,20 +41,27 @@
 					$dataToWhere = array();
 					$dataToWhere['unique_id'] = $allUID[$i];
 					$r = $db->delete("avn_teacher_master",$dataToWhere);
+					if($r["response"] == "SUCCESS"){
+						$dataToWherelogin = array();
+						$dataToWherelogin['user_ref_id'] = $allUID[$i];
+						$login = $db->delete("avn_login_master",$dataToWherelogin);
+						
+						if($login["response"] == "SUCCESS"){
+							$dataToWhereadmin = array();
+							$dataToWhereadmin["user_ref_id"] = $uId;
+							$loginadmin = $db->delete("ltf_admin_usermaster",$dataToWhereadmin);
+							if($loginadmin["response"] == "SUCCESS")
+								$resp = 3;
+							else
+								$resp = 4;						
+							unset($loginadmin);
+							unset($dataToWhereadmin);
+						}
+						unset($dataToWherelogin);
+						unset($login);
+					}
 					unset($r);
 					unset($dataToWhere);
-					
-					$dataToWhere = array();
-					$dataToWhere['user_ref_id'] = $allUID[$i];
-					$r = $db->delete("avn_login_master",$dataToWhere);
-					unset($r);
-					unset($dataToWhere);
-					if($r["response"] == "SUCCESS")
-						$resp = 3;
-					else
-						$resp = 4;
-					unset($dataToWhere);
-					unset($r);
 				}
 			}
 		}
@@ -55,5 +69,5 @@
 	}
 	else
 		$resp = 0;
-		echo $resp . "|#|" . $page;
+	echo $resp . "|#|" . $page . "|#|" . $uId;
 ?>
