@@ -7,10 +7,8 @@
 		$db->open();
 		
 		$uid = $_POST["uniqueid"];
-		$resid = $_POST['resid'];
 		$catgid = $_POST['catgid'];
 		$chptid = $_POST['chptid'];
-		$resid = $_POST['resid'];
 		$topicid = $_POST['topicid'];
 		$testtype = $_POST['type'];
 		$page = $_POST["page"];
@@ -18,12 +16,12 @@
 		$newpr = "";
 		$selpr = $db->query("query","SELECT priority FROM avn_question_master WHERE unique_id = " . $uid . " AND type = " . $testtype);
 		
-		$chngpr = $db->query("query","SELECT unique_id,priority FROM avn_question_master WHERE priority > " . $selpr[0]['priority'] . " AND resource_id = " . $resid . " AND type = " . $testtype . "  order by priority ASC");
+		$chngpr = $db->query("query","SELECT unique_id,priority FROM avn_question_master WHERE priority > " . $selpr[0]['priority'] . " AND topic_id = " . $topicid . " AND type = " . $testtype . "  order by priority ASC");
 	
 		if($chngpr["response"] !== "ERROR"){
 			for($i = 0; $i <count($chngpr); $i++){
 				$newpr =  $chngpr[$i]['priority'] - 1;
-				$insernewpr = $db->query("query","UPDATE avn_question_master set priority = " . $newpr . " WHERE unique_id = " . $chngpr[$i]['unique_id'] . " AND resource_id = " . $resid . " AND type = " . $testtype);
+				$insernewpr = $db->query("query","UPDATE avn_question_master set priority = " . $newpr . " WHERE unique_id = " . $chngpr[$i]['unique_id'] . " AND topic_id = " . $topicid . " AND type = " . $testtype);
 			}
 		}
 		if(strpos($uid, ",") === false){
@@ -49,7 +47,7 @@
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
 					//$selpr = $db->query("query","SELECT priority FROM avn_question_master WHERE unique_id = " . $allUID[$i] . " AND type = " . $testtype);
-					$chngpr = $db->query("query","SELECT unique_id,priority FROM avn_question_master WHERE unique_id > " . $allUID[$i] . " AND resource_id = " . $resid . " AND type = " . $testtype . "  order by priority ASC");
+					$chngpr = $db->query("query","SELECT unique_id,priority FROM avn_question_master WHERE unique_id > " . $allUID[$i] . " AND topic_id = " . $topicid . " AND type = " . $testtype . "  order by priority ASC");
 					$whereDel  = array();
 					$whereDel["test_id"] = $allUID[$i];
 					$st = $db->delete("user_test_answer",$whereDel);
@@ -60,6 +58,8 @@
 						for($r = 0;$r < count($chngpr); $r++){
 							$dataToWhere =array();
 							$dataToWhere['unique_id'] = $chngpr[$r]['unique_id'];
+							$dataToWhere['topic_id'] = $topicid;
+							$dataToWhere['type'] = $testtype;
 							$arrToUpdate = array();
 							$arrToUpdate['priority'] = intval($chngpr[$r]['priority']) - 1;
 							$insernewpr = $db->update("avn_question_master", $arrToUpdate, $dataToWhere);
@@ -95,5 +95,5 @@
 	}
 	else 
 		$resp = 0;
-	echo $resp. "|#|" . $currid . "|#|" . $topicid . "|#|" . $resid . "|#|" . $catgid . "|#|" . $chptid . "|#|" .$page;
+	echo $resp . "|#|" . $currid . "|#|" . $topicid . "|#|" . $chptid . "|#|" . $catgid . "|#|" . $testtype . "|#|" .$page . "|#|" . $uid;
 ?>
