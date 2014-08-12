@@ -112,5 +112,5 @@
 	}
 	else
 		$resp = 0;
-		echo $resp . "|#|" . $currid . "|#|" . $topic . "|#|" . $catgid . "|#|" . $chptid . "|#|" . $page;
+	echo $resp . "|#|" . $currid . "|#|" . $topic . "|#|" . $catgid . "|#|" . $chptid . "|#|" . $page . "|#|" . $uId;
 ?>
