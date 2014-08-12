@@ -102,22 +102,8 @@ function filter_querystring($query_string, $arrFields, $arrValues){
                     <th><a href="javascript:void(0);" onclick="javascript: _getCityTable(<?php echo $curPage; ?>, 'acm.city_prefix','asc');" class="sort">City Prefix</a></th>
 	<?php
 			}
-            if($field == "acm.entry_date"){
-                if($sort == "asc"){
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getCityTable(<?php echo $curPage; ?>, 'acm.entry_date','desc');" class="sort">Entry Date <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getCityTable(<?php echo $curPage; ?>, 'acm.entry_date','asc');" class="sort">Entry Date <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getCityTable(<?php echo $curPage; ?>, 'acm.entry_date','asc');" class="sort">Entry Date</a></th>
-	<?php
-			}
-    ?>
+	<th>Options</th>
 	</tr>
 	</thead>
 <?php
@@ -135,26 +121,20 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 			else
 				$class = "darkyellow";
 ?>
-		<tr class="<?php echo $class; ?>" id="cityRow-<?php echo $i; ?>">
+		<tr class="<?php echo $class; ?>" id="cityRow-<?php echo $r[$i]["unique_id"]; ?>">
 			<td>
 				<table cellpadding="0" cellspacing="0" border="0">
 					<tr>
-						<td><input class="fl" type="checkbox" name="chkCity[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" /></td>
-						<td><div class="multimenu ml10 mr10"><img src="./images/options.png" title="More actions" />
-						<div class="cb"></div>
-						<label>
-							<ul>
-								<li class="settings p1"><a href="edit-city.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page"), array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a></li>
-								<li class="settings p2"><a href="javascript:void(0);" onclick="javascript:_deletecity(<?php echo $i; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a></li>
-							</ul>
-						</label>
-						</div></td>
+						<td><input class="fl" type="checkbox" name="chkCity[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" /></td>
 					</tr>
 				</table>
 			</td>
 			<td><?php echo $r[$i]["city_name"]; ?></td>
 			<td><?php echo $r[$i]["city_prefix"]; ?></td>
-			<td><?php echo $r[$i]["entry_date"]; ?></td>
+			<td>
+				<a href="edit-city.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page"), array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a> |
+				<a href="javascript:void(0);" onclick="javascript:_deletecity(<?php echo $i; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a>
+			</td>
 		</tr>
 <?php
 			}
