@@ -19,7 +19,6 @@
 			$dataToWhere = array();
 			$dataToWhere['user_ref_id'] = $uId;
 			$r = $db->delete("avn_login_master",$dataToWhere);
-			//print_r($r);
 			if($r["response"] == "SUCCESS")
 				$resp = 1;
 			else
@@ -53,5 +52,5 @@
 	}
 	else
 		$resp = 0;
-		echo $resp . "|#|" . $page;
+		echo $resp . "|#|" . $page . "|#|" . $uId;
 ?>
