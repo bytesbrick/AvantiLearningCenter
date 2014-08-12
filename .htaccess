@@ -25,8 +25,11 @@ RewriteRule ^topics-completed/$ topicscompleted.php [L,QSA]
 RewriteRule ^topics-starred/$ topicstarred.php [L,QSA]
 RewriteRule ^page-redirect/$ redirection.php [L,QSA]
 RewriteRule ^batches/$ select-batch.php [L,QSA]
-
+RewriteRule ^class-schedule/$ schedule.php [L,QSA]
 RewriteRule ^admin/$ admin/index.php [L,QSA]
+
+
+RewriteRule ^manager-batch/([^/]+)/$ save-batch.php?ddlbatch=$1 [L,QSA]
 
 RewriteRule ^([^/]+)/$ chapter-list.php?currslug=$1 [L,QSA]
 RewriteRule ^([^/]+)/([^/]+)/([^/]+)/$ topic-list.php?currslug=$1&catgslug=$2&chpslug=$3 [L,QSA]
