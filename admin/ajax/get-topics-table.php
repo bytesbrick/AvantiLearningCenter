@@ -73,8 +73,7 @@
     $countWhereClause = "";
     $selectWhereClause = "";
     
-    $sql = "SELECT COUNT(tm.unique_id) as 'total' FROM avn_topic_master tm INNER JOIN avn_chapter_master chm ON chm.unique_id = tm.chapter_id INNER JOIN ltf_category_master
-    lcm ON lcm.unique_id = chm.category_id";
+    $sql = "SELECT COUNT(tm.unique_id) as 'total' FROM avn_topic_master tm INNER JOIN avn_chapter_master chm ON chm.unique_id = tm.chapter_id INNER JOIN ltf_category_master lcm ON lcm.unique_id = chm.category_id";
     if($where != "")
         $sql.= " WHERE " . $where;
     $sqlCount = $db->query("query",$sql);
@@ -102,16 +101,16 @@
                         if($field == "tm.topic_code"){
                                 if($sort == "asc"){
                 ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_code','desc');" class="sort">Topic Code <img src="./images/up-arr.png" border="0" /></a></th>
+                                        <th style='width:100px;'><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_code','desc');" class="sort">Topic Code <img src="./images/up-arr.png" border="0" /></a></th>
                 <?php
                                 }else{
                 ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_code','asc');" class="sort">Topic Code <img src="./images/down-arr.png" border="0" /></a></th>
+                                        <th style='width:100px;'><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_code','asc');" class="sort">Topic Code <img src="./images/down-arr.png" border="0" /></a></th>
                 <?php
                                 }
                         }else{
                 ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_code','asc');" class="sort">Topic Code</a></th>
+                                        <th style='width:100px;'><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_code','asc');" class="sort">Topic Code</a></th>
                 <?php
                         }
                  ?>
@@ -119,79 +118,35 @@
                         if($field == "tm.topic_name"){
                                 if($sort == "asc"){
                 ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_name','desc');" class="sort">Topic <img src="./images/up-arr.png" border="0" /></a></th>
+                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_name','desc');" class="sort">Topic <img src="./images/up-arr.png" border="0" /></a><br /><small>Chapter | Subject | Status</small></th>
                 <?php
                                 }else{
                 ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_name','asc');" class="sort">Topic <img src="./images/down-arr.png" border="0" /></a></th>
+                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_name','asc');" class="sort">Topic <img src="./images/down-arr.png" border="0" /></a><br /><small>Chapter | Subject | Status</small></th>
                 <?php
                                 }
                         }else{
                 ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_name','asc');" class="sort">Topic</a></th>
-                <?php
-                        }
-                       if($field == "rm.ractive"){
-                            if($sort == "asc"){
-                ?>
-                                <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'rm.ractive','desc');" class="sort">Status<img src="./images/up-arr.png" border="0" /></a></th>
-                <?php
-                                }else{
-                ?>
-                                    <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'rm.ractive','asc');" class="sort">Status<img src="./images/down-arr.png" border="0" /></a></th>
-                <?php
-                                }
-                        }else{
-                ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'rm.ractive','asc');" class="sort">Status</a></th>
-                <?php
-                        }
-                        if($field == "chm.chapter_name"){
-                            if($sort == "asc"){
-                ?>
-                                <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'chm.chapter_name','desc');" class="sort">Chapter <img src="./images/up-arr.png" border="0" /></a></th>
-                <?php
-                                }else{
-                ?>
-                                        <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'chm.chapter_name','asc');" class="sort">Chapter <img src="./images/down-arr.png" border="0" /></a></th>
-                <?php
-                                }
-                        }else{
-                ?>
-                                <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'chm.chapter_name','asc');" class="sort">Chapter</a></th>
-                <?php
-                        }
-                        if($field == "cm.category_name"){
-                            if($sort == "asc"){
-                ?>
-                                <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'cm.category_name','desc');" class="sort">Subject <img src="./images/up-arr.png" border="0" /></a></th>
-                <?php
-                                }else{
-                ?>
-                                    <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'cm.category_name','asc');" class="sort">Subject <img src="./images/down-arr.png" border="0" /></a></th>
-                <?php
-                                }
-                        }else{
-                ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'cm.category_name','asc');" class="sort">Subject</a></th>
+                                <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_name','asc');" class="sort">Topic</a><br /><small>Chapter | Subject | Status</small></th>
                 <?php
                         }
                     if($field == "tm.topic_priority"){
                         if($sort == "asc"){
                 ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_priority','desc');" class="sort">Priority <img src="./images/down-arr.png" border="0" /></a></th>
+                            <th style='width:100px;'><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_priority','desc');" class="sort">Priority <img src="./images/down-arr.png" border="0" /></a></th>
                 <?php
                         }else{
                 ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_priority','asc');" class="sort">Priority <img src="./images/up-arr.png" border="0" /></a></th>
+                            <th style='width:100px;'><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_priority','asc');" class="sort">Priority <img src="./images/up-arr.png" border="0" /></a></th>
                 <?php
                         }
                     }else{
                 ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_priority','asc');" class="sort">Priority</a></th>
+                            <th style='width:100px;'><a href="javascript:void(0);" onclick="javascript: _getTopicTable(<?php echo $currid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>, <?php echo $curPage; ?>, 'tm.topic_priority','asc');" class="sort">Priority</a></th>
                 <?php
                     }
                 ?>
+                <th style='width:180px;'>Options</th>
         </tr>
     </thead>
 <?php
@@ -219,45 +174,32 @@
             }
             unset($sqlResCount);
 ?>
-    <tr class="<?php echo $class; ?>" id="topicdatarow-<?php echo $i; ?>">
+    <tr class="<?php echo $class; ?>" id="topicdatarow-<?php echo $r[$i]["unique_id"]; ?>">
         <td>
             <table>
                 <tr>
-                    <td><input class="fl" type="checkbox" name="chkTopic[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
+                    <td><input class="fl" type="checkbox" name="chkTopic[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
                     </td>
-                    <td>
-                        <div class="multimenu"><img src="./images/options.png" title="More actions" />
-                            <div class="cb"></div>
-                            <label>
-                                <ul>
-                                    <li class="settings p1"><a href="edit-topic.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "chptid","catgid","cid","page", "resp"), array($r[$i]["currid"], $r[$i]["ChapterID"],$r[$i]["category_id"],$r[$i]["unique_id"],$curPage, "")); ?>" class="texthover">Edit</a></li>
-                                    <li class="settings p2"><a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deletetopic(<?php echo $r[$i]["curriculum_id"]; ?>,<?php echo $i; ?>,<?php echo $r[$i]["ChapterID"]; ?>,<?php echo $r[$i]["category_id"];?>,<?php echo $curPage; ?>)">Delete </a></li>
-                                    <li class="settings p3"><a href="./resource.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "topicid", "rid", "resp", "catgid", "chptid"), array($r[$i]["curriculum_id"], $r[$i]["unique_id"], $r[$i]["resid"], "", $r[$i]["category_id"], $r[$i]["ChapterID"])); ?>">Resources (<?php echo $resCount; ?>)</a></li>
-                                </ul>
-                            </label>
-                        </div>
-                    </td>
-                </tr>
+                </tr> 
             </table>
         </td>
         <td><?php echo $r[$i]["topic_code"]; ?></td>
-        <td><?php echo $r[$i]["topic_name"]; ?></td>
-<?php
+        <td><?php echo $r[$i]["topic_name"]; ?><br /><small class="mt5" style='style="color: #3c6435;'><span class="fl">
+            <?php echo $r[$i]["chapter_name"]; ?> | <?php echo $r[$i]["category_name"]; ?></small><small>&nbsp;| <?php
             if($r[$i]["status"] == 1){
 ?>
-                <td><a href="javascript:void(0);" id="statusactive" name="statusactive" onclick="javascript: _changestatus(<?php echo $currid; ?>,<?php echo $i; ?>,this.id,<?php echo $chptid; ?>,<?php echo $catgid; ?>,<?php echo $curPage; ?>);" style="color: #3c6435;"><?php echo "Active"; ?></a></td>
+                <a href="javascript:void(0);" onclick="javascript: _changestatus(<?php echo $currid; ?>,<?php echo $i; ?>,1,<?php echo $chptid; ?>,<?php echo $catgid; ?>,<?php echo $curPage; ?>,this);" style="color: #3c6435;"><span id="active-<?php echo $i; ?>"><?php echo "Active"; ?></span></a>
 <?php
             }else{
 ?>
-                <td><a href="javascript:void(0);" id="statusinactive" name="statusinactive" onclick="javascript: _changestatus(<?php echo $currid; ?>,<?php echo $i; ?>,this.id,<?php echo $chptid ?>,<?php echo $catgid; ?>,<?php echo $curPage; ?>);" style="color: #f00;"><?php echo "Inactive"; ?></a></td>
+                <a href="javascript:void(0);" onclick="javascript: _changestatus(<?php echo $currid; ?>,<?php echo $i; ?>,0,<?php echo $chptid ?>,<?php echo $catgid; ?>,<?php echo $curPage; ?>,this);" style="color: #f00;"><span id="active-<?php echo $i; ?>"><?php echo "Inactive"; ?></span></a>
 <?php
             }
 ?>
-        <td><?php echo $r[$i]["chapter_name"]; ?></td>
-        <td><?php echo $r[$i]["category_name"]; ?></td>
-        <td>
+        </span></small></td>
+        <td style='width:100px;'>
         <?php echo $r[$i]["topic_priority"]; ?>
-        <?php
+            <?php
                 $totlares = $db->query("query","SELECT COUNT(unique_id) as total FROM avn_topic_master");
                 $rd = $db->query("query","SELECT MAX(topic_priority) as maxp,MIN(topic_priority) as minp from avn_topic_master WHERE chapter_id = ". $chptid);
                 if($rd[0]['minp'] == $r[$i]['topic_priority'])
@@ -291,6 +233,9 @@
                 }
             ?>
             </td>
+            <td style='width:180px;'>
+                <a href="edit-topic.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "chptid","catgid","cid","page", "resp"), array($r[$i]["currid"], $r[$i]["ChapterID"],$r[$i]["category_id"],$r[$i]["unique_id"],$curPage, "")); ?>" class="ftblack">Edit</a> | <a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deletetopic(<?php echo $r[$i]["curriculum_id"]; ?>,<?php echo $i; ?>,<?php echo $r[$i]["ChapterID"]; ?>,<?php echo $r[$i]["category_id"];?>,<?php echo $curPage; ?>)">Delete </a> | <a href="./resource.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid", "topicid", "rid", "resp", "catgid", "chptid"), array($r[$i]["curriculum_id"], $r[$i]["unique_id"], $r[$i]["resid"], "", $r[$i]["category_id"], $r[$i]["ChapterID"])); ?>" class="ftblack">Resources (<?php echo $resCount; ?>)</a>
+            </td>
     </tr>
     <?php
             }
@@ -314,7 +259,7 @@
                 if($i == $curPage)
                     $nav .= "<a href=\"javascript: void(0);\" class=\"currentPage\">$i</a>";
                 else
-                    $nav .=    " <a href=\"javascript:void(0);\" onclick=\"javascript: _getTopicTable($currid,$chptid, $catgid, $i, '$field','$sort');\" class=\"paging\">$i</a>";
+                    $nav .= "<a href=\"javascript:void(0);\" onclick=\"javascript: _getTopicTable($currid,$chptid, $catgid, $i, '$field','$sort');\" class=\"paging\">$i</a>";
             }
             if($curPage > 5)
             {

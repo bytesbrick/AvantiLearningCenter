@@ -14,9 +14,9 @@
 		$page = $_POST["page"];
 		$currid = $_POST["currid"];
 		if(strpos($uniqueid, ",") === false){
-			if(isset($status) && $status == "activestatus")
+			if(isset($status) && $status == 0)
 				$newstatus = 1;
-			if(isset($status) && $status == "inactivestatus")
+			if(isset($status) && $status == 1)
 				$newstatus = 0;
 			
 			$dataToSave = array();
@@ -36,9 +36,9 @@
 			$allUID = explode(",", $uniqueid);
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
-					if(isset($status) && $status == "activestatus")
+					if(isset($status) && $status == 0)
 						$newstatus = 1;
-					if(isset($status) && $status == "inactivestatus")
+					if(isset($status) && $status == 1)
 						$newstatus = 0;								
 					$dataToSave = array();
 					$datatowhere = array();
@@ -55,5 +55,5 @@
 		}
 		$db->close();
 	}
-	echo $resp . "|#|" . $currid . "|#|" . $topicid . "|#|" . $catgid . "|#|" . $chptid . "|#|" . $page;
+	echo $resp . "|#|" . $currid . "|#|" . $topicid . "|#|" . $catgid . "|#|" . $chptid . "|#|" . $page . "|#|" . $_POST["rid"];
 ?>

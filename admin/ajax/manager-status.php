@@ -10,11 +10,11 @@
 		
 		$uniqueid = $_POST["uniqueid"];
 		$page= $_POST["page"];
-		$status= $_POST["action"];
+		$status= $_POST["status"];
 		if(strpos($uniqueid, ",") === false){
-			if(isset($status) && $status == "statusactive")
+			if(isset($status) && $status == 0)
 				$newstatus = 1;
-			if(isset($status) && $status == "statusinactive")
+			if(isset($status) && $status == 1)
 				$newstatus = 0;
 			
 			$dataToSave = array();
@@ -39,15 +39,15 @@
 				$resp = 2;
 			unset($r);
 			unset($dataToSave);
-			unset($datatowhere);
+			unset($datatowhere); 
 		}
 		else{
 			$allUID = explode(",", $uniqueid);
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
-					if(isset($status) && $status == "statusactive")
+					if(isset($status) && $status == 0)
 						$newstatus = 1;
-					if(isset($status) && $status == "statusinactive")
+					if(isset($status) && $status == 1)
 						$newstatus = 0;
 					$dataToSave = array();
 					$dataToSave['status'] = $newstatus;
@@ -60,12 +60,9 @@
 					
 					$dataToSave = array();
 					$dataToSave['status'] = $newstatus;
-					
 					$datatowhere = array();
 					$datatowhere['user_ref_id'] = $allUID[$i];
 					$r = $db->update("avn_login_master",$dataToSave,$datatowhere);
-					unset($dataToWhere);
-					unset($r);
 					if($r["response"] == "SUCCESS")
 						$resp = 3;
 					else
@@ -80,5 +77,5 @@
 	}
 	else
 		$resp = "0";
-	echo $resp. "|#|" . $page;
+	echo $resp. "|#|" . $page . "|#|" . $_POST["rid"];;
 ?>

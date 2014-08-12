@@ -84,6 +84,7 @@
             <?php
                 }
 	    ?>
+	    <th>Options</th>
         </tr>
     </thead>
     <?php
@@ -99,28 +100,21 @@
                     $class = "darkyellow";
     ?>
     <tbody id="tagdata">
-        <tr class="<?php echo $class; ?>" id="tagrow-<?php echo $i; ?>">
+        <tr class="<?php echo $class; ?>" id="tagrow-<?php echo $r[$i]["unique_id"]; ?>">
             <td>
                 <table>
                     <tr>
                         <td>
-                           <input class="fl" type="checkbox" name="chkTag[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
-                        </td>
-                        <td>
-                            <div class="multimenu"><img src="./images/options.png" title="More actions" />
-                                <div class="cb"></div>
-                                <label>
-                                    <ul>
-                                        <li class="settings p1"><a href="add-tag.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page"), array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</li>
-                                        <li class="settings p2"></a> <a href="javascript:void(0);" class="btnDelete" onclick="javascript:_deletetag(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a></li>
-                                    </ul>
-                                </label>
-                            </div>
+                           <input class="fl" type="checkbox" name="chkTag[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
                         </td>
                     </tr>
                 </table>
             </td>
-            <td><?php echo $r[$i]["tag_name"]; ?></td >
+            <td><?php echo $r[$i]["tag_name"]; ?></td>
+	    <td>
+		<a href="javascript:void(0);" onclick="javascript:_editTag(<?php echo $r[$i]["unique_id"]; ?>, <?php echo ($i + 1); ?>);">Edit</a> |
+		<a href="javascript:void(0);" class="btnDelete" onclick="javascript:_deletetag(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a>
+	    </td>
         </tr>
     <?php
             }

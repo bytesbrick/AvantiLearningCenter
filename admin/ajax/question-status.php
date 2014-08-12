@@ -16,24 +16,30 @@
 		$page= $_POST["page"];
 		$currid= $_POST["currid"];
 		if(strpos($uniqueid, ",") === false){
-			if(isset($status) && $status == "activestatus")
-			$newstatus = 1;
-			if(isset($status) && $status == "inactivestatus")
+			if(isset($status) && $status == 0)
+				$newstatus = 1;
+			if(isset($status) && $status == 1)
 				$newstatus = 0;
-			$r = $db->query("query","UPDATE avn_question_master SET status = " . $newstatus . " WHERE unique_id = " . $uniqueid . " AND type = " . $qtype);
+			$dataToSave = array();
+			$dataToWhere["unique_id"] = $uniqueid ;
+			$dataToSave["status"] = $newstatus;
+			//$r = $db->query("query","UPDATE avn_question_master SET status = " . $newstatus . " WHERE unique_id = " . $uniqueid . " AND type = " . $qtype);
+			$r = $db->update("avn_question_master",$dataToSave,$dataToWhere);
 			if($r["response"] == "SUCCESS")
 				$resp = 1;
 			else
 				$resp = 2;
 			unset($r);
+			unset($dataToSave);
+			unset($dataToWhere);
 		}
 		else{
 			$allUID = explode(",", $uniqueid);
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
-					if(isset($status) && $status == "activestatus")
+					if(isset($status) && $status == 0)
 						$newstatus = 1;
-					if(isset($status) && $status == "inactivestatus")
+					if(isset($status) && $status == 1)
 						$newstatus = 0;
 					$dataToSave = array();
 					$dataToWhere["unique_id"] = $allUID[$i];
@@ -54,5 +60,5 @@
 	}
 	else
 		$resp = 0;
-	echo $resp. "|#|" . $currid . "|#|" . $topicid  . "|#|" . $catgid . "|#|" . $chptid . "|#|" . $page;
+	echo $resp. "|#|" . $currid . "|#|" . $topicid  . "|#|" . $catgid . "|#|" . $chptid . "|#|" . $page . "|#|" . $_POST["rid"];
 ?>

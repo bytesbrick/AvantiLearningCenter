@@ -72,14 +72,17 @@
   
     $curPage = $_POST["page"];
     if(($curPage == "") || ($curPage == 0))												
-    $curPage=1;
+        $curPage=1;
+        
+        //echo $curPage;
     $recPerpage = 25;
     $countWhereClause = "";
     $selectWhereClause = "";
     $pageParam="";
-    $sql = "SELECT COUNT(rd.unique_id) as 'total' FROM avn_resources_detail rd INNER JOIN avn_topic_master tm ON rd.topic_id = tm.unique_id INNER JOIN avn_chapter_master chm ON chm.unique_id = tm.chapter_id INNER JOIN ltf_category_master lcm ON lcm.unique_id = chm.category_id WHERE rd.topic_id = " . $topicid;
+    $sql = "SELECT COUNT(rd.unique_id) as 'total' FROM avn_resources_detail rd INNER JOIN avn_topic_master tm ON rd.topic_id = tm.unique_id INNER JOIN avn_chapter_master chm ON chm.unique_id = tm.chapter_id INNER JOIN ltf_category_master lcm ON lcm.unique_id = chm.category_id";
     if($where != "")
-        $sql .= " AND " .$where;
+        $sql .= " WHERE " .$where;
+        //echo $sql;
     $sqlCount = $db->query("query",$sql);
     $recCount = $sqlCount[0]['total'];
     $noOfpage = ceil($recCount/$recPerpage);
@@ -133,24 +136,24 @@
             ?>
                             <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.title','asc');" class="sort">Title</a></th>
             <?php
-                    }
-                    if($field == "rd.entry_date"){
+                    if($field == "rd.visiblity"){
                         if($sort == "asc"){
             ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.entry_date','desc');" class="sort">Entry Date <img src="./images/up-arr.png" border="0" /></a></th>
+                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.visiblity','desc');" class="sort">Resource Visiblity <img src="./images/up-arr.png" border="0" /></a></th>
             <?php
                         }else{
             ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.entry_date','asc');" class="sort">Entry Date <img src="./images/down-arr.png" border="0" /></a></th>
+                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.visiblity','asc');" class="sort">Resource Visiblity <img src="./images/down-arr.png" border="0" /></a></th>
             <?php
                         }
                     }else{
             ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.entry_date','asc');" class="sort">Entry Date</a></th>
+                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.visiblity','asc');" class="sort">Resource Visiblity</a></th>
             <?php
                     }
+                    }
             ?>
-            <?php
+            <?php 
                     if($field == "rd.priority"){
                         if($sort == "asc"){
             ?>
@@ -166,22 +169,8 @@
                             <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.priority','asc');" class="sort">Priority</a></th>
             <?php
                     }
-                    if($field == "rd.status"){
-                        if($sort == "asc"){
             ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.status','desc');" class="sort">Status <img src="./images/up-arr.png" border="0" /></a></th>
-            <?php
-                        }else{
-            ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.status','asc');" class="sort">Status <img src="./images/down-arr.png" border="0" /></a></th>
-            <?php
-                        }
-                    }else{
-            ?>
-                            <th><a href="javascript:void(0);" onclick="javascript: _getResourceTable(<?php echo $topicid; ?>,<?php echo $resid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'rd.status','asc');" class="sort">Status</a></th>
-            <?php
-                    }
-            ?>
+                <th>Options</th>
             </tr>
     </thead>
 <?php
@@ -190,6 +179,7 @@
         $sqlres .= " WHERE " . $where;
     $sqlres .= " ORDER BY " . mysql_escape_string($field) . " " . mysql_escape_string($sort) . " limit ".$limitStart.", ".$limitEnd . "";
     $r = $db->query("query",$sqlres);
+    //echo $sqlres;
     if(!array_key_exists("response", $r))
     {
 ?>
@@ -203,55 +193,57 @@
         else
             $class = "darkyellow";
 ?>
-<tr class="<?php echo $class; ?>" id="rdatarow-<?php echo $i; ?>">
+<tr class="<?php echo $class; ?>" id="rdatarow-<?php echo $r[$i]["unique_id"]; ?>">
     <td>
         <table>
             <tr>
                 <td>
-                    <input class="fl" type="checkbox" name="chkResource[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
-                </td>
-                <td>
-                    <div class="multimenu"><img src="./images/options.png" title="More actions" />
-                        <div class="cb"></div>
-                        <label>
-                            <ul>
-                                <?php
-                                    if(isset($r[$i]['content_type']) && $r[$i]['content_type'] == "Content"){
-                                ?>
-                                        <li class="settings p1"><a href="./edit-resource.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","topicid","catgid","chptid","cid","resp","page"), array($currid,$topicid,$catgid,$chptid,$r[$i]["unique_id"],"",$curPage)); ?>">Edit</a></li>
-                                <?php
-                                    }
-                                ?>
-                                <li class="settings p2"><a href="javascript:void(0);" style="color:#f00;" onclick="javascript:_deleteresource(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $topicid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $curPage; ?>)">Delete</a></li>
-                                <?php
-                                    if(strtolower($r[$i]['content_type']) == "spot" && $isSpotlink){
-                                ?>
-                                        <li class="settings p3"><a href="./spot-test-questions.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","chptid","catgid","topicid","resp","page"), array($currid,$chptid,$catgid,$topicid ,"" ,"")); ?>">Questions (<?php echo $spotQCount; ?>)</a></li>
-                                <?php
-                                    }
-                                    if(strtolower($r[$i]['content_type']) == "concept" && $isConceptlink){
-                                ?>
-                                        <li class="settings p3"><a href="./concept-test-questions.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","chptid","catgid","topicid","resp","page"), array($currid,$chptid,$catgid,$topicid ,"" ,"")); ?>">Questions (<?php echo $conceptQCount; ?>)</a></li>
-                                <?php
-                                    }
-                                ?>
-                                </li>
-                            </ul>
-                        </label>
-                    </div>
+                    <input class="fl" type="checkbox" name="chkResource[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
                 </td>
             </tr>
         </table>
     </td>
-    <td><?php echo $r[$i]["title"]; ?></td>
-    <td><?php echo $r[$i]["entry_date"]; ?></td>
+    <td><?php echo $r[$i]["title"]; ?><br />
+    <?php
+        if($r[$i]["status"] == 1){
+    ?>
+            <a href="javascript:void(0);" onclick="javascript: _chngResStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,1,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $curPage; ?>,this)" style="color:#3c6435;"><small><span id="active-<?php echo $i; ?>"><?php echo "Active"; ?></span></small></a>
+    <?php
+        }else{
+    ?>
+            <a href="javascript:void(0);"  onclick="javascript: _chngResStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,0,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $curPage; ?>,this)" style="color:#f00;"><small><span id="active-<?php echo $i; ?>"><?php echo "Inactive"; ?></span></small></a>
+    <?php
+        }
+    ?>
+    </td>
+    <td>
+            <?php
+                $userVisible = "";
+                $selvisibleUser = "SELECT visiblity FROM avn_resource_visiblity_mapping WHERE resource_id = " . $r[$i]["unique_id"];
+                $selvisibleUserRS = $db->query("query" , $selvisibleUser);
+                if(!array_key_exists("response", $selvisibleUserRS)){
+                    for($k = 0; $k < count($selvisibleUserRS); $k++){
+                        if($selvisibleUserRS[$k]["visiblity"] == 1){
+                            $userVisible = "Student";
+                        }
+                        if($selvisibleUserRS[$k]["visiblity"] == 2){
+                            $userVisible .= $userVisible == "" ? "Teacher" : " | " . "Teacher";
+                        }
+                        if($selvisibleUserRS[$k]["visiblity"] == 3){
+                            $userVisible .= $userVisible == "" ? "Manager" : " | " . "Manager";
+                        }
+                    }
+                    echo $userVisible;
+                }
+                unset($selvisibleUserRS);
+            ?>
+    </td> 
     <td>
         <?php echo $r[$i]["priority"]; ?>
         <?php
             $totlares = $db->query("query","SELECT COUNT(unique_id) as total FROM avn_resources_detail");
                 $rd = $db->query("query","SELECT MAX(priority) as maxp,MIN(priority) as minp from avn_resources_detail WHERE topic_id = ". $_POST['topicid']);
-                if($rd[0]['minp'] == $r[$i]['priority'])
-                {
+                if($rd[0]['minp'] == $r[$i]['priority']){
             ?>
                     <a href="javascript:void(0);" style="display: none;">
                         <img src="./images/showmore-up.png" id="up" name="up" class="noborder" onclick="javascript: _setpriority(<?php echo $currid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $r[$i]['unique_id']; ?>,<?php echo $topicid; ?>,this.id,<?php echo $curPage; ?>);" class="fl" style="width: 14px;" />
@@ -281,17 +273,28 @@
                 }
             ?>
     </td>
-    <?php
-        if($r[$i]["status"] == 1){
-    ?>
-            <td><a href="javascript:void(0);" id="inactivestatus" name="inactivestatus" onclick="javascript: _chngResStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,this.id,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $curPage; ?>)" style="color:#3c6435;"><?php echo "Active"; ?></a></td>
-    <?php
-        }else{
-    ?>
-            <td><a href="javascript:void(0);" id="activestatus" name="activestatus" onclick="javascript: _chngResStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,this.id,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $curPage; ?>)" style="color:#f00;"><?php echo "Inactive"; ?></a></td>
-    <?php
-        }
-    ?>
+    <td>
+        <?php
+            if(isset($r[$i]['content_type']) && $r[$i]['content_type'] == "Content"){
+        ?>
+                <a href="./edit-resource.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","topicid","catgid","chptid","cid","resp","page"), array($currid,$topicid,$catgid,$chptid,$r[$i]["unique_id"],"",$curPage)); ?>" class="ftblack">Edit</a> | 
+        <?php
+            }
+        ?>
+        <a href="javascript:void(0);" style="color:#f00;" onclick="javascript:_deleteresource(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $topicid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>,<?php echo $curPage; ?>)">Delete</a>
+        <?php
+            if(strtolower($r[$i]['content_type']) == "spot" && $isSpotlink){
+        ?>
+                 | <a href="./spot-test-questions.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","chptid","catgid","topicid","resp","page"), array($currid,$chptid,$catgid,$topicid ,"" ,"")); ?>" class="ftblack">Questions (<?php echo $spotQCount; ?>)</a>
+        <?php
+            }
+            if(strtolower($r[$i]['content_type']) == "concept" && $isConceptlink){
+        ?>
+                 | <a href="./concept-test-questions.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","chptid","catgid","topicid","resp","page"), array($currid,$chptid,$catgid,$topicid ,"" ,"")); ?>" class="ftblack">Questions (<?php echo $conceptQCount; ?>)</a>
+        <?php
+            }
+        ?>
+        </td>
 </tr>
 <?php
         }

@@ -73,129 +73,85 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 	<?php
             if($field == "alm.teacher_id"){
                 if($sort == "asc"){
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.teacher_id','desc');" class="sort">Teacher ID <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.teacher_id','asc');" class="sort">Teacher ID <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }
             }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.teacher_id','asc');" class="sort">Teacher ID</a></th>
 	<?php
 			}
             if($field == "alm.fname"){
                 if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.fname','desc');" class="sort">Teacher Name <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
+	?>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.fname','desc');" class="sort">Teacher Name <img src="./images/up-arr.png" border="0" /></a><br /><small>Gender | Status</small></th>
+	<?php
                 }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.fname','asc');" class="sort">Teacher Name <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
+	?>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.fname','asc');" class="sort">Teacher Name <img src="./images/down-arr.png" border="0" /></a><br /><small>Gender | Status</small></th>
+	<?php
                 }
             }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.fname','asc');" class="sort">Teacher Name</a></th>
+	?>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.fname','asc');" class="sort">Teacher Name</a><br /><small>Gender | Status</small></th>
 	<?php
-			}
+		}
             if($field == "alm.email_id"){
                 if($sort == "asc"){
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.email_id','desc');" class="sort">Email <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.email_id','asc');" class="sort">Email <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }
             }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.email_id','asc');" class="sort">Email</a></th>
 	<?php
-			}
-	if($field == "alm.city_name"){
+		}
+		if($field == "alm.city_name"){
                 if($sort == "asc"){
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.city_name','desc');" class="sort">City Name <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.city_name','asc');" class="sort">City Name <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }
             }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.city_name','asc');" class="sort">City Name</a></th>
 	<?php
 		}
-	if($field == "alm.phone"){
-                if($sort == "asc"){
-    ?>
+		if($field == "alm.phone"){
+			if($sort == "asc"){
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.phone','desc');" class="sort">Phone <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.phone','asc');" class="sort">Phone <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
+	<?php
                 }
             }else{
-    ?>
+	?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.phone','asc');" class="sort">Phone</a></th>
 	<?php
 			}
-			if($field == "alm.gender"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.gender','desc');" class="sort">Gender <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.gender','asc');" class="sort">Gender <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.gender','asc');" class="sort">Gender</a></th>
-	<?php
-			}
-			if($field == "alm.status"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.status','desc');" class="sort">Status <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.status','asc');" class="sort">Status <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.status','asc');" class="sort">Status</a></th>
-	<?php
-			}
-	if($field == "alm.entry_date"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.entry_date','desc');" class="sort">Entry Date <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.entry_date','asc');" class="sort">Entry Date <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getStudentTable(<?php echo $curPage; ?>, 'alm.entry_date','asc');" class="sort">Entry Date</a></th>
-	<?php
-			}
 	?>
+		<th>Options</th>
 	</tr>
 	</thead>
 <?php
-	$r = $db->query("query","SELECT alm.*,acm.city_name, alm.city_id FROM avn_teacher_master alm INNER JOIN avn_city_master acm ON acm.unique_id = alm.city_id ORDER BY " . mysql_escape_string($field) . " " . mysql_escape_string($sort) . " LIMIT " . $limitStart. ", " . $limitEnd);
+	$r = $db->query("query","SELECT alm.*,acm.city_name, alm.city_id,lm.status as 'statuslogin'  FROM avn_teacher_master alm INNER JOIN avn_city_master acm ON acm.unique_id = alm.city_id INNER JOIN avn_login_master lm ON lm.user_ref_id = alm.unique_id ORDER BY " . mysql_escape_string($field) . " " . mysql_escape_string($sort) . " LIMIT " . $limitStart. ", " . $limitEnd);
 	if(!array_key_exists("response", $r))
 	{
 		if(!$r["response"] == "ERROR")
@@ -210,54 +166,48 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 					$class = "darkyellow";
 ?>
 	<tbody id="usersdata">
-		<tr class="<?php echo $class; ?>" id="TeacherRow-<?php echo $i; ?>">
+		<tr class="<?php echo $class; ?>" id="TeacherRow-<?php echo $r[$i]["unique_id"]; ?>">
 			<td>
 				<table>
 					<tr>
 						<td>
-							<input class="fl" type="checkbox" name="chkTeacher[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
-						</td>
-						<td>
-							<div class="multimenu"><img src="./images/options.png" title="More actions" />
-								<div class="cb"></div>
-								<label>
-									<ul>
-										<li class="settings p1"><a href="edit-teacher.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page") , array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a></li>
-										<li class="settings p2"><a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deleteteacher(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a></li>
-										<li class="settings p2"><a href="javascript:void(0);" onclick="javascript: _disableThisPage();_setDivPos('popupContact'); _batchAssigntoTeacher(<?php echo $r[$i]["city_id"]; ?>,<?php echo $r[$i]["unique_id"]; ?>)">Assign Batch</a></li>
-									</ul>
-								</label>
-							</div>
+							<input class="fl" type="checkbox" name="chkTeacher[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
 						</td>
 					</tr>
 				</table>
 			</td>
 			<td><?php echo $r[$i]["teacher_id"]; ?></td>
-			<td><?php echo $r[$i]["fname"]; ?> &nbsp; <?php echo $r[$i]["lname"]; ?></td>
+			<td><?php echo $r[$i]["fname"]; ?>&nbsp;<?php echo $r[$i]["lname"]; ?><br />
+				<?php
+					if($r[$i]["gender"] == 1){
+				?>
+						<small style="color:#0e8a39;">Male</small> <small>|</small>
+				<?php
+					}else if($r[$i]["gender"] == 2){
+				?>
+						<small style="color:#e21680;">Female</small> <small>|</small>
+				<?php
+					}
+					if($r[$i]["statuslogin"] == 1){
+				?> 
+				<a href="javascript:void(0);" onclick="javascript: _changeteacherstatus(<?php echo $i; ?>,1,<?php echo $curPage; ?>,this);" style="color: #3c6435;"><small><span id="active-<?php echo $i; ?>"><?php echo "Active"; ?></span></small></a>
+				<?php
+					}elseif($r[$i]["statuslogin"] == 0){
+				?>
+				<a href="javascript:void(0);" onclick="javascript: _changeteacherstatus(<?php echo $i; ?>,0,<?php echo $curPage; ?>,this);" style="color: #f00;"><small><span id="active-<?php echo $i; ?>"><?php echo "Inactive"; ?></span></small></a>
+				<?php
+					}
+				?>
+			</td>
 			<td><?php echo $r[$i]["email_id"]; ?></td>
 			<td><?php echo $r[$i]["city_name"]; ?></td>
 			<td><?php echo $r[$i]["phone"]; ?></td>
-		<?php
-			if($r[$i]["gender"] == 1){
-		?>
-				<td>Male</td>
-		<?php
-			}else if($r[$i]["gender"] == 2){
-		?>
-				<td>Female</td>
-		<?php
-			}
-		if($r[$i]["status"] == 1){
-?> 
-                <td><a href="javascript:void(0);" id="statusinactive" name="statusinactive" onclick="javascript: _changeteacherstatus(<?php echo $i; ?>,this.id,<?php echo $curPage; ?>);" style="color: #3c6435;"><?php echo "Active"; ?></a></td>
-<?php
-            }else{
-?>
-                <td><a href="javascript:void(0);" id="statusactive" name="statusactive" onclick="javascript: _changeteacherstatus(<?php echo $i; ?>,this.id,<?php echo $curPage; ?>);" style="color: #f00;"><?php echo "Inactive"; ?></a></td>
-<?php
-            }
-		?>
-		<td><?php echo $r[$i]["entry_date"]; ?></td>
+		
+		<td>
+			<a href="edit-teacher.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page") , array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a> |
+			<a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deleteteacher(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a> |
+			<a href="javascript:void(0);" onclick="javascript: _disableThisPage();_setDivPos('popupContact'); _batchAssigntoTeacher(<?php echo $r[$i]["city_id"]; ?>,<?php echo $r[$i]["unique_id"]; ?>)">Assign Batch</a>
+		</td>
 	</tr>
 	<?php
 				}

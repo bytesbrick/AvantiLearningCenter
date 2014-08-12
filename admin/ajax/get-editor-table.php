@@ -101,63 +101,18 @@
             if($field == "lau.firstname"){
                 if($sort == "asc"){
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.firstname','desc');" class="sort">First Name <img src="./images/up-arr.png" border="0" /></a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.firstname','desc');" class="sort">Name <img src="./images/up-arr.png" border="0" /></a></th>
     <?php
                 }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.firstname','asc');" class="sort">First Name <img src="./images/down-arr.png" border="0" /></a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.firstname','asc');" class="sort">Name <img src="./images/down-arr.png" border="0" /></a></th>
     <?php
                 }
             }else{
     ?>
-                    <td><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.firstname','asc');" class="sort">First Name</a></td>
+                    <td><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.firstname','asc');" class="sort">Name</a></td>
 	<?php
-			}
-	if($field == "lau.lastname"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.lastname','desc');" class="sort">Last Name <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.lastname','asc');" class="sort">Last Name <img src="./images/down-arr.png" border="0" /></a></tg>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.lastname','asc');" class="sort">Last Name</a></th>
-	<?php
-			}
-	if($field == "lau.gender"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.gender','desc');" class="sort">Gender <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.gender','asc');" class="sort">Gender <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.gender','asc');" class="sort">Gender</a></th>
-	<?php
-			}
-	if($field == "lau.status"){
-                if($sort == "asc"){
-    ?>
-                    <td><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.status','desc');" class="sort">Status <img src="./images/up-arr.png" border="0" /></a></td>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.status','asc');" class="sort">Status <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.status','asc');" class="sort">Status</a></th>
-	<?php
-			}
+		}
 	if($field == "lau.usertype"){
                 if($sort == "asc"){
     ?>
@@ -171,8 +126,9 @@
             }else{
     ?>
                     <th><a href="javascript:void(0);" onclick="javascript: _getEditorTable(<?php echo $curPage; ?>, 'lau.usertype','asc');" class="sort">Type</a></th>
+		    <th>Options</th>
 	<?php
-			}
+		}
 	?>
 	</tr>
 <?php
@@ -191,52 +147,44 @@
 					$class = "darkyellow";
 ?>
 <tbody id="editordata">
-	<tr class="<?php echo $class; ?>" id="editorRow-<?php echo $i; ?>">
+	<tr class="<?php echo $class; ?>" id="editorRow-<?php echo $r[$i]["unique_id"]; ?>">
 		<td>
 			<table>
 				<tr>
 					<td>
-						<input class="fl" type="checkbox" name="chkEditor[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
-					</td>
-					<td>
-						<div class="multimenu"><img src="./images/options.png" title="More actions" />
-							<div class="cb"></div>
-							<label>
-								<ul>
-									<li class="settings p1"><a href="edit-editor.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","page","resp"), array($r[$i]["unique_id"],$curPage,"")); ?>">Edit</a></li>
-									<li class="settings p2"><a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deleteEditor(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a></li>
-								</ul>
-							</label>
-						</div>
+						<input class="fl" type="checkbox" name="chkEditor[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
 					</td>
 				</tr>
 			</table>
 		</td>
 		<td><?php echo $r[$i]["username"]; ?></td>
 		<td><?php echo $r[$i]["emailid"]; ?></td>
-		<td><?php echo $r[$i]["firstname"]; ?></td>
-		<td><?php echo $r[$i]["lastname"]; ?></td>
+		<td><?php echo $r[$i]["firstname"]; ?>&nbsp;<?php echo $r[$i]["lastname"]; ?><br />
 	<?php
 		if($r[$i]["gender"] == 1){
 	?>
-			<td>Male</td>
+			<small style="color:#0e8a39;">Male</small>
 	<?php
 		}else if($r[$i]["gender"] == 2){
 	?>
-			<td>Female</td>
+			<small style="color:#e21680;">Female</small>
 	<?php
 		}
             if($r[$i]["status"] == 1){
     ?>
-                <td><a href="javascript:void(0);" id="inactivestatus" name="inactivestatus" onclick="javascript: _chngEditorStatus(<?php echo $i; ?>,this.id,<?php echo $curPage; ?>)" style="color:#3c6435;"><?php echo "Active"; ?></a></td>
+                 <small> | </small><a href="javascript:void(0);" onclick="javascript: _chngEditorStatus(<?php echo $i; ?>,1,<?php echo $curPage; ?>,this)" style="color:#3c6435;"><small><span id="active-<?php echo $i; ?>"><?php echo "Active"; ?></span></small></a>
     <?php
             }else{
     ?>
-                <td><a href="javascript:void(0);" id="activestatus" name="activestatus" onclick="javascript: _chngEditorStatus(<?php echo $i; ?>,this.id,<?php echo $curPage; ?>)" style="color:#f00;"><?php echo "Inactive"; ?></a></td>
+                <small> | </small><a href="javascript:void(0);" onclick="javascript: _chngEditorStatus(<?php echo $i; ?>,0,<?php echo $curPage; ?>,this)" style="color:#f00;"><small><span id="active-<?php echo $i; ?>"><?php echo "Inactive"; ?></span></small></a>
     <?php
             }
     ?>
 		<td><?php echo $r[$i]["usertype"]; ?></td>
+		<td>
+			<a href="edit-editor.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","page","resp"), array($r[$i]["unique_id"],$curPage,"")); ?>">Edit</a> |
+			<a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deleteEditor(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a>
+		</td>
 	</tr>
 <?php
 			}

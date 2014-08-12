@@ -5,7 +5,7 @@
 	$db->open();
 	$where = "";
 	$sort = "DESC";
-	$field = "acm.unique_id";
+	$field = "acm.entry_date";
 	if(isset($_POST["sf"]) && $_POST["sf"] != "")
 		$field = $_POST["sf"];
 	if(isset($_POST["sd"]) && $_POST["sd"] != "")
@@ -100,8 +100,8 @@
                         <th><a href="javascript:void(0);" onclick="javascript: _getCurriculumTable(<?php echo $curPage; ?>, 'acm.curriculum_id','asc');" class="sort">Curriculum ID</a></th>
             <?php
                 }
-				if($field == "acm.current_year"){
-                    if($sort == "asc"){
+			if($field == "acm.current_year"){
+				if($sort == "asc"){
             ?>
                         <th><a href="javascript:void(0);" onclick="javascript: _getCurriculumTable(<?php echo $curPage; ?>, 'acm.current_year','desc');" class="sort">Academic Year <img src="./images/up-arr.png" border="0" /></a></th>
             <?php
@@ -115,7 +115,7 @@
                         <th><a href="javascript:void(0);" onclick="javascript: _getCurriculumTable(<?php echo $curPage; ?>, 'acm.current_year','asc');" class="sort">Academic Year</a></th>
             <?php
                 }
-				if($field == "acm.class"){
+		if($field == "acm.class"){
                     if($sort == "asc"){
             ?>
                         <th><a href="javascript:void(0);" onclick="javascript: _getCurriculumTable(<?php echo $curPage; ?>, 'acm.class','desc');" class="sort">Class <img src="./images/up-arr.png" border="0" /></a></th>
@@ -131,8 +131,10 @@
             <?php
                 }
 			?>
+		<th>Options</th>
 		</tr>
 	</thead>
+	<tbody id="curdata">
 <?php
 $r = $db->query("query","SELECT acm.* FROM avn_curriculum_master acm ORDER BY " . mysql_escape_string($field) . " " . mysql_escape_string($sort) . " LIMIT " . $limitStart . ", " .$limitEnd . "");
 	if(!array_key_exists("response", $r)){
@@ -146,35 +148,30 @@ $r = $db->query("query","SELECT acm.* FROM avn_curriculum_master acm ORDER BY " 
 			$sqlSubjCount = $db->query("query","select count(unique_id) as 'total' from ltf_category_master WHERE curriculum_id = " . $r[$i]["unique_id"]);
 			$subjCount = $sqlSubjCount[0]['total'];
 ?>
-	<tbody id="curdata">
-	<tr class="<?php echo $class; ?>" id="curdatarow-<?php echo $i; ?>">
+	
+	<tr class="<?php echo $class; ?>" id="curdatarow-<?php echo $r[$i]["unique_id"]; ?>">
 		<td>
-            <table cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td><input class="fl" type="checkbox" name="chkCurriculum[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
-                    </td>
-			<td>
-				<div class="multimenu"><img src="./images/options.png" title="More actions" />
-					<div class="cb"></div>
-					<label>
-						<ul>
-							<li class="settings p1"><a href="edit-curriculum.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","page","resp"), array($r[$i]["unique_id"],$curPage,"")); ?>">Edit</a></li>
-							<li class="settings p2"><a href="javascript:void(0);" class="btnDelete" onclick="javascript:_deleteCurriculum(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a></li>
-							<li class="settings p2"><a href="./category.php?currid=<?php echo $r[$i]["unique_id"]; ?>">Subjects (<?php echo $subjCount; ?>)</a></li>
-						</ul>
-					</label>
-				</div> 
-			</td>
-		</tr>
-	</table>
+			<table cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td><input class="fl" type="checkbox" name="chkCurriculum[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
+					</td>
+				</tr>
+			</table>
+		</td>
 			<?php
-				$curyear =   $r[$i]["current_year"];
-				$nextyear =   str_ireplace("20", "-", $r[$i]["next_year"]);
+				$curyear = $r[$i]["current_year"];
+				$nextyear = str_ireplace("20", "-", $r[$i]["next_year"]);
 			?>
 		<td><?php echo $r[$i]["curriculum_name"]; ?></td>
 		<td><?php echo $r[$i]["curriculum_id"]; ?></td>
 		<td><?php echo $curyear.$nextyear; ?></td>
 		<td><?php echo $r[$i]["class"]; ?></td>
+		<td>
+			<a href="edit-curriculum.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","page","resp"), array($r[$i]["unique_id"],$curPage,"")); ?>">Edit</a> |
+			<a href="javascript:void(0);" class="btnDelete" onclick="javascript:_deleteCurriculum(<?php echo $i; ?>,<?php echo $r[$i]["unique_id"]; ?>,<?php echo $curPage; ?>)">Delete</a> |
+			<a href="./category.php?currid=<?php echo $r[$i]["unique_id"]; ?>">Subjects</a> (<?php echo $subjCount; ?>) |
+			<a href="javascript:void(0);" onclick="javascript:_disableThisPage();_setDivPos('popupContact2'); _orderCurriculum(<?php echo $r[$i]["unique_id"]; ?>);">Order Execution</a> 
+		</td>
 	</tr>
 <?php
 		}
@@ -192,20 +189,17 @@ $r = $db->query("query","SELECT acm.* FROM avn_curriculum_master acm ORDER BY " 
 		$end = $start + 5;
 		if($end > $noOfpage)
 		$end = $noOfpage + 1;
-		for($i = $start; $i < $end; $i++)
-		{
+		for($i = $start; $i < $end; $i++){
 			if($i == $curPage)
 				$nav .= "<a href=\"javascript: void(0);\" class=\"currentPage\">$i</a>";
 			else
-				$nav .=    "<a href=\"javascript: void(0);\" onclick=\"javascript: _getCurriculumTable($i);\" class=\"paging\">$i</a>";
+				$nav .= "<a href=\"javascript: void(0);\" onclick=\"javascript: _getCurriculumTable($i);\" class=\"paging\">$i</a>";
 		}
-		if($curPage > 5)
-		{
+		if($curPage > 5){
 			$page = $start - 5;
 			$prev = " <a href=\"javascript: void(0);\" onclick=\"javscript: _getCurriculumTable($page);\" class=\"paging\">&laquo;&nbsp;Previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 		}
-		if($noOfpage > 5 && $end <= $noOfpage)
-		{
+		if($noOfpage > 5 && $end <= $noOfpage){
 			$page = $start + 5;
 			$next = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=\"javascript: void(0);\" onclick=\"javscript: _getCurriculumTable($page);\" class=\"paging\">Next&nbsp;&raquo;</a> ";
 		}
@@ -217,3 +211,7 @@ $r = $db->query("query","SELECT acm.* FROM avn_curriculum_master acm ORDER BY " 
 		</tr>
 	</table>
 </div><!-- end of content -->
+<div class="popup" id="popupContact2"><!--Pop-up for assigning chapters-->
+	<a id="popupContactClose" onclick="javascript: _hideFloatingObjectWithID('popupContact2');_enableThisPage();">X</a>
+	<div class="batchInfo" id="TabheadingBatch" style="height: 450px;"></div>
+</div><!-- end of assigning chapter pop-up -->

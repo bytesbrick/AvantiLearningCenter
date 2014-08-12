@@ -44,7 +44,7 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 	$db->open();
 	
 	$sort = "DESC";
-	$field = "alm.unique_id";
+	$field = "alm.entry_date";
 	if(isset($_POST["sf"]) && $_POST["sf"] != "")
 		$field = $_POST["sf"];
 	if(isset($_POST["sd"]) && $_POST["sd"] != "")
@@ -89,16 +89,16 @@ function filter_querystring($query_string, $arrFields, $arrValues){
             if($field == "alm.fname"){
                 if($sort == "asc"){
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.manager_name','desc');" class="sort">Manager Name <img src="./images/up-arr.png" border="0" /></a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.manager_name','desc');" class="sort">Manager Name <img src="./images/up-arr.png" border="0" /></a><br /><small>Gender | Status</small></th>
     <?php
                 }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.manager_name','asc');" class="sort">Manager Name <img src="./images/down-arr.png" border="0" /></a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.manager_name','asc');" class="sort">Manager Name <img src="./images/down-arr.png" border="0" /></a><br /><small>Gender | Status</small></th>
     <?php
                 }
             }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.manager_name','asc');" class="sort">Manager Name</a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.manager_name','asc');" class="sort">Manager Name</a><br /><small>Gender | Status</small></th>
 	<?php
 		}
             if($field == "alm.email_id"){
@@ -146,52 +146,8 @@ function filter_querystring($query_string, $arrFields, $arrValues){
                     <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.phone','asc');" class="sort">Phone</a></th>
 	<?php
 		}
-			if($field == "alm.gender"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.gender','desc');" class="sort">Gender <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.gender','asc');" class="sort">Gender <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.gender','asc');" class="sort">Gender</a></th>
-    <?php
-		}
-			if($field == "alm.status"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.status','desc');" class="sort">Status <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.status','asc');" class="sort">Status <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.status','asc');" class="sort">Status</a></th>
-   <?php
-		}
-	if($field == "alm.entry_date"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.entry_date','desc');" class="sort">Entry Date <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.entry_date','asc');" class="sort">Entry Date <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getManagerTable (<?php echo $curPage; ?>, 'alm.entry_date','asc');" class="sort">Entry Date</a></th>
-   <?php
-		}
    ?>
+		<th>Options</th>
 	</tr>
 	</thead>
    <?php
@@ -211,54 +167,48 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 					$class = "darkyellow";
 ?>
 	<tbody id="usersdata">
-		<tr class="<?php echo $class; ?>" id="ManagerRow-<?php echo $i; ?>">
+		<tr class="<?php echo $class; ?>" id="ManagerRow-<?php echo $r[$i]["unique_id"]; ?>">
 			<td>
 				<table>
 					<tr>
 						<td>
-							<input class="fl" type="checkbox" name="chkManager[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" />
-						</td>
-						<td>
-							<div class="multimenu"><img src="./images/options.png" title="More actions" />
-								<div class="cb"></div>
-								<label>
-									<ul>
-										<li class="settings p1"><a href="edit-manager.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page") , array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a></li>
-										<li class="settings p2"><a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deletemanager(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a></li>
-										<li class="settings p2"><a href="javascript:void(0);" onclick="javascript: _disableThisPage();_setDivPos('popupContact'); _assignCenter(<?php echo $r[$i]["unique_id"]; ?>);">Assign Center</a></li>
-									</ul>
-								</label>
-							</div>
+							<input class="fl" type="checkbox" name="chkManager[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" />
 						</td>
 					</tr>
 				</table>
 			</td>
 			<td><?php echo $r[$i]["center_manager_id"]; ?></td>
-			<td><?php echo $r[$i]["fname"]; ?>&nbsp;<?php echo $r[$i]["lname"]; ?></td>
+			<td><?php echo $r[$i]["fname"]; ?>&nbsp;<?php echo $r[$i]["lname"]; ?><br />
+				<?php 
+					if($r[$i]["gender"] == 1){
+				?>
+						<small style="color:#0e8a39;">Male </small><small> |</small>
+				<?php
+					}else if($r[$i]["gender"] == 2){
+				?>
+						<small style="color:#e21680;">Female </small><small> |</small>
+				<?php
+					}
+				if($r[$i]["status"] == 1){
+		?>
+				<a href="javascript:void(0);" onclick="javascript: _changemanagerstatus(<?php echo $i; ?>,1,<?php echo $curPage; ?>,this);" style="color: #3c6435;"><small><span id="active-<?php echo $i; ?>"><?php echo "Active"; ?></span></small></a>
+		<?php
+			    }else{
+		?>
+				<a href="javascript:void(0);" onclick="javascript: _changemanagerstatus(<?php echo $i; ?>,0,<?php echo $curPage; ?>, this);" style="color: #f00;"><small><span id="active-<?php echo $i; ?>"><?php echo "Inactive"; ?></span></small></a>
+		<?php
+			    }
+		?>
+			</td>
 			<td><?php echo $r[$i]["email_id"]; ?></td>
 			<td><?php echo $r[$i]["city_name"]; ?></td>
 			<td><?php echo $r[$i]["phone"]; ?></td>
-		<?php 
-			if($r[$i]["gender"] == 1){
-		?>
-				<td>Male</td>
-		<?php
-			}else if($r[$i]["gender"] == 2){
-		?>
-				<td>Female</td>
-		<?php
-			}
-		if($r[$i]["status"] == 1){
-?>
-                <td><a href="javascript:void(0);" id="statusinactive" name="statusinactive" onclick="javascript: _changemanagerstatus(<?php echo $i; ?>,this.id,<?php echo $curPage; ?>);" style="color: #3c6435;"><?php echo "Active"; ?></a></td>
-<?php
-            }else{
-?>
-                <td><a href="javascript:void(0);" id="statusactive" name="statusactive" onclick="javascript: _changemanagerstatus(<?php echo $i; ?>,this.id,<?php echo $curPage; ?>);" style="color: #f00;"><?php echo "Inactive"; ?></a></td>
-<?php
-            }
-		?>
-		<td><?php echo $r[$i]["entry_date"]; ?></td>
+		
+		<td>
+			<a href="edit-manager.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page") , array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a> |
+			<a href="javascript:void(0);" class="btnDelete" onclick="javascript: _deletemanager(<?php echo $i; ?>,<?php echo $curPage; ?>)">Delete</a> |
+			<a href="javascript:void(0);" onclick="javascript: _disableThisPage();_setDivPos('popupContact'); _assignCenter(<?php echo $r[$i]["unique_id"]; ?>);">Assign Center</a>
+		</td>
 	</tr>
 	<?php
 				}
