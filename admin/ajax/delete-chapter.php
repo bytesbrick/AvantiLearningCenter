@@ -10,16 +10,16 @@
 		$catgid = $_POST["catgid"];
 		$page = $_POST["page"];
 		$currid = $_POST["currid"];
-		$seltopic = $db->query("query","SELECT unique_id FROM avn_topic_master WHERE chapter_id = " . $uid);
 		
-		if(!array_key_exists("response",$seltopic)){
-			if(!$seltopic["response"] == "ERROR"){
-				$resp = 3;
-				unset($seltopic);
+		if(strpos($uid, ",") === false){
+			$seltopic = $db->query("query","SELECT unique_id FROM avn_topic_master WHERE chapter_id = " . $uid);
+			if(!array_key_exists("response",$seltopic)){
+				if(!$seltopic["response"] == "ERROR"){
+					$resp = 3;
+					unset($seltopic);
+				}
 			}
-		}
-		else{
-			if(strpos($uid, ",") === false){
+			else{
 				$where = array();
 				$where["unique_id"] = $uid;
 				$delchp = $db->delete("avn_chapter_master",$where);
@@ -27,13 +27,21 @@
 					$resp = 1;
 				else
 					$resp = 2;
-					unset($delchp);
-					unset($where);
-					
-			} else {
-				$allUID = explode(",", $uid);
-				for($i = 0; $i < count($allUID); $i++){
-					if($allUID[$i] != ""){
+				unset($delchp);
+				unset($where);
+			}
+		} else {
+			$allUID = explode(",", $uid);
+			for($i = 0; $i < count($allUID); $i++){
+				if($allUID[$i] != ""){
+					$seltopic = $db->query("query","SELECT unique_id FROM avn_topic_master WHERE chapter_id = " . $allUID[$i]);
+					if(!array_key_exists("response",$seltopic)){
+						if(!$seltopic["response"] == "ERROR"){
+							$resp = 5;
+							unset($seltopic);
+						}
+					}
+					else{
 						$where = array();
 						$where["unique_id"] = $allUID[$i];
 						$delchp = $db->delete("avn_chapter_master",$where);
@@ -43,13 +51,13 @@
 							$resp = 5;
 						unset($delchp);
 						unset($where);
-					}					
-				}
+					}
+				}					
 			}
 		}
 		$db->close();
 	}
 	else
 		$resp = 0;
-		echo $resp . "|#|" . $currid . "|#|" . $catgid . "|#|" . $page;
+	echo $resp . "|#|" . $currid . "|#|" . $catgid . "|#|" . $page . "|#|" . $uid;
 ?>
