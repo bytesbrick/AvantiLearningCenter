@@ -123,7 +123,7 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 	<?php
 			}
 	?>
-		<th>Chapter Count</th>
+		<th>Options</th>
 	</tr>
 	</thead>
 <?php
@@ -151,29 +151,22 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 			$chapterCount = $chapter[0]["Chapters"];
 			unset($chapter);
 ?>
-		<tr class="<?php echo $class; ?>" id="catRow-<?php echo $i; ?>">
+		<tr class="<?php echo $class; ?>" id="catRow-<?php echo $r[$i]["unique_id"]; ?>">
 			<td>
 				<table cellpadding="0" cellspacing="0" border="0">
 					<tr>
-						<td><input class="fl" type="checkbox" name="chkCategory[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" /></td>
-						<td><div class="multimenu ml10 mr10"><img src="./images/options.png" title="More actions" />
-						<div class="cb"></div>
-						<label>
-							<ul>
-								<li class="settings p1"><a href="add-category.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","cid","resp","page"), array($r[$i]["currid"], $r[$i]["unique_id"],"",$curPage)); ?>">Edit</a></li>
-								<li class="settings p2"><a href="javascript:void(0);" onclick="javascript:_deletesubject(<?php echo $r[$i]["currid"]; ?>,<?php echo $i; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a></li>
-								<li class="settings p3"><a href="chapter.php?currid=<?php echo $r[$i]["currid"]; ?>&catgid=<?php echo $r[$i]["unique_id"]; ?>">Chapters</a></li>
-							</ul>
-						</label>
-						</div>
-						</td>
+						<td><input class="fl" type="checkbox" name="chkCategory[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" /></td>
 					</tr>
 				</table>
 			</td>
 			<td><?php echo $r[$i]["curriculum_name"]; ?></td>
 			<td><?php echo $r[$i]["category_name"]; ?></td>
 			<td><?php echo $r[$i]["prefix"]; ?></td>
-			<td><?php echo $chapterCount; ?></td>
+			<td>
+				<a href="add-category.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","cid","resp","page"), array($r[$i]["currid"], $r[$i]["unique_id"],"",$curPage)); ?>" class="ftblack">Edit</a> | 
+				<a href="javascript:void(0);" onclick="javascript:_deletesubject(<?php echo $r[$i]["currid"]; ?>,<?php echo $i; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a> |
+				<a href="chapter.php?currid=<?php echo $r[$i]["currid"]; ?>&catgid=<?php echo $r[$i]["unique_id"]; ?>" class="ftblack">Chapters</a> (<?php echo $chapterCount; ?>)
+			</td>
 		</tr>
 <?php
 			}

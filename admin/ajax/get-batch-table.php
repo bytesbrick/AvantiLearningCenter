@@ -90,31 +90,31 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 			 if($field == "abm.batch_id"){
                 if($sort == "asc"){
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_id','desc');" class="sort">Batch ID <img src="./images/up-arr.png" border="0" /></a></th>
+                    <th style="width:85px;"><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_id','desc');" class="sort">Batch ID <img src="./images/up-arr.png" border="0" /></a></th>
     <?php
                 }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_id','asc');" class="sort">Batch ID <img src="./images/down-arr.png" border="0" /></a></th>
+                    <th style="width:85px;"><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_id','asc');" class="sort">Batch ID <img src="./images/down-arr.png" border="0" /></a></th>
     <?php
                 }
             }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_id','asc');" class="sort">Batch ID</a></th>
+                    <th style="width:85px;"><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_id','asc');" class="sort">Batch ID</a></th>
 	<?php
 			}
             if($field == "abm.batch_name"){
                 if($sort == "asc"){
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_name','desc');" class="sort">Batch Name <img src="./images/up-arr.png" border="0" /></a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_name','desc');" class="sort">Batch Name <img src="./images/up-arr.png" border="0" /></a><br /><small>Facilitator | Strength</small></th>
     <?php
                 }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_name','asc');" class="sort">Batch Name <img src="./images/down-arr.png" border="0" /></a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_name','asc');" class="sort">Batch Name <img src="./images/down-arr.png" border="0" /></a><br /><small>Facilitator | Strength</small></th>
     <?php
                 }
             }else{
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_name','asc');" class="sort">Batch Name</a></th>
+                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.batch_name','asc');" class="sort">Batch Name</a><br /><small>Facilitator | Strength</small></th>
 	<?php
 			}
 	  if($field == "abm.city_id"){
@@ -147,57 +147,12 @@ function filter_querystring($query_string, $arrFields, $arrValues){
                     <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.learning_center','asc');" class="sort">Center</a></th>
 	<?php
 			}
-          
-			if($field == "abm.facilitator"){
-                if($sort == "asc"){
     ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.facilitator','desc');" class="sort">Facilitator <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.facilitator','asc');" class="sort">Facilitator <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.facilitator','asc');" class="sort">Facilitator</a></th>
-	<?php
-			}
-			  if($field == "abm.strength"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.strength','desc');" class="sort">Strength <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.strength','asc');" class="sort">Strength <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.strength','asc');" class="sort">Strength</a></th>
-	<?php
-		}
-            if($field == "abm.entry_date"){
-                if($sort == "asc"){
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.entry_date','desc');" class="sort">Entry Date <img src="./images/up-arr.png" border="0" /></a></th>
-    <?php
-                }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.entry_date','asc');" class="sort">Entry Date <img src="./images/down-arr.png" border="0" /></a></th>
-    <?php
-                }
-            }else{
-    ?>
-                    <th><a href="javascript:void(0);" onclick="javascript: _getBatchTable(<?php echo $curPage; ?>, 'abm.entry_date','asc');" class="sort">Entry Date</a></th>
-	<?php
-			}
-    ?>
+		<th>Options</th>
 	</tr>
 	</thead>
 <?php
-	$r = $db->query("query","SELECT abm.*,cmm.unique_id as 'managerID',acrm.curriculum_name,acm.city_name,alcm.center_name, CONCAT(cmm.fname, ' ', cmm.lname) as manager_name, CONCAT(tm.fname, ' ', tm.lname) as teacher_name FROM avn_batch_master abm INNER JOIN avn_city_master acm ON acm.unique_id = abm.city_id INNER JOIN avn_learningcenter_master alcm ON alcm.unique_id = abm.learning_center LEFT JOIN avn_centermanager_master cmm ON cmm.unique_id = abm.facilitator_id LEFT JOIN avn_teacher_master tm ON tm.unique_id = abm.facilitator_id INNER JOIN avn_curriculum_master acrm ON acrm.unique_id = abm.curriculum_id ORDER BY " . mysql_escape_string($field) . " " . mysql_escape_string($sort) . " LIMIT " . $limitStart. ", " . $limitEnd);
+	$r = $db->query("query","SELECT abm.*,cmm.unique_id as 'managerID',acrm.curriculum_name, acrm.unique_id as 'curid',acm.city_name,alcm.center_name, CONCAT(cmm.fname, ' ', cmm.lname) as manager_name, CONCAT(tm.fname, ' ', tm.lname) as teacher_name FROM avn_batch_master abm INNER JOIN avn_city_master acm ON acm.unique_id = abm.city_id INNER JOIN avn_learningcenter_master alcm ON alcm.unique_id = abm.learning_center LEFT JOIN avn_centermanager_master cmm ON cmm.unique_id = abm.facilitator_id LEFT JOIN avn_teacher_master tm ON tm.unique_id = abm.facilitator_id INNER JOIN avn_curriculum_master acrm ON acrm.unique_id = abm.curriculum_id ORDER BY " . mysql_escape_string($field) . " " . mysql_escape_string($sort) . " LIMIT " . $limitStart. ", " . $limitEnd);
 	if(!array_key_exists("response", $r)){
 		if(!$r["response"] == "ERROR"){
 ?>
@@ -211,21 +166,11 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 			else
 				$class = "darkyellow";
 ?>
-		<tr class="<?php echo $class; ?>" id="batchRow-<?php echo $i; ?>">
+		<tr class="<?php echo $class; ?>" id="batchRow-<?php echo $r[$i]["unique_id"]; ?>">
 			<td>
 				<table cellpadding="0" cellspacing="0" border="0">
 					<tr>
-						<td><input class="fl" type="checkbox" name="chkBatch[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" /></td>
-						<td><div class="multimenu ml10 mr10"><img src="./images/options.png" title="More actions" />
-						<div class="cb"></div>
-						<label>
-							<ul>
-								<li class="settings p1"><a href="edit-batch.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page"), array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a></li>
-								<li class="settings p2"><a href="javascript:void(0);" onclick="javascript:_deletebatch(<?php echo $i; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a></li>
-								<li class="settings p2"><a href="javascript:void(0);" onclick="javascript: _disableThisPage();_setDivPos('popupContact'); _assignChapter(<?php echo $r[$i]["unique_id"]; ?>);">Assign Chapter</a></li>
-							</ul>
-						</label>
-						</div></td>
+						<td><input class="fl" type="checkbox" name="chkBatch[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" /></td>
 					</tr>
 				</table>
 			</td>
@@ -247,12 +192,14 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 				//}
 			?>
 			<td><?php echo $r[$i]["batch_id"]; ?></td>
-			<td><?php echo $r[$i]["batch_name"]; ?></td>
+			<td><?php echo $r[$i]["batch_name"]; ?><br /><small style="color: #a74242;"><?php echo $facilitator; ?> | <?php echo $r[$i]["strength"]; ?></small></td>
 			<td><?php echo $r[$i]["city_name"]; ?></td>
 			<td><?php echo $r[$i]["center_name"]; ?></td>
-			<td><?php echo $facilitator; ?></td>
-			<td><?php echo $r[$i]["strength"]; ?></td>
-			<td><?php echo $r[$i]["entry_date"]; ?></td>
+			<td>
+				
+				<a href="edit-batch.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("cid","resp","page"), array($r[$i]["unique_id"],"",$curPage)); ?>">Edit</a> | 
+				<a href="javascript:void(0);" onclick="javascript:_deletebatch(<?php echo $i; ?>,<?php echo $curPage; ?>)" class="btnDelete">Delete</a>
+			</td>
 		</tr>
 <?php
 			}
@@ -295,12 +242,16 @@ function filter_querystring($query_string, $arrFields, $arrValues){
 			</tr>
 		</table>
 	</div><!-- end of content -->
-				<div class="popup" id="popupContact"><!--Pop-up for assigning chapters-->
-					<a id="popupContactClose" onclick="javascript: _hideFloatingObjectWithID('popupContact');_enableThisPage();">X</a>
-					<div class="batchInfo" id="TabheadingBatch">
-						
-					<!--</div>
-					<div class="dataInfo">-->
-						
+	<div class="popup" id="popupContact"><!--Pop-up for assigning chapters-->
+		<a id="popupContactClose" onclick="javascript: _hideFloatingObjectWithID('popupContact');_enableThisPage();">X</a>
+		<div class="batchInfo" id="TabheadingBatch"></div>
+	</div><!-- end of assigning chapter pop-up -->
+	<div class="popup" id="popupContact2"><!--Pop-up for assigning chapters-->
+		<a id="popupContactClose2" onclick="javascript: _hideFloatingObjectWithID('popupContact2');_enableThisPage();">X</a>
+		<div class="" id="TabheadingBatch2"></div>
+	</div><!-- end of assigning chapter pop-up -->
+	<div class="popup" id="popupContact1"><!--Pop-up for assigning chapters-->
+					<a id="popupContactClose1" onclick="javascript: _hideFloatingObjectWithID('popupContact1');_enableThisPage();">X</a>
+					<div class="batchInfo" id="TabheadingBatch1">	
 					</div>
 				</div><!-- end of assigning chapter pop-up -->
