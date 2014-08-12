@@ -16,7 +16,7 @@
 ?>
 </head>
 <body>
-<div id="page">
+<div id="page"> 
 	<div id="pageContainer">
 		<div id="wrapper">	
 			<div id="header">
