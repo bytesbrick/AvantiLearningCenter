@@ -99,9 +99,7 @@
 				    <img src="<?php echo __WEBROOT__;?>/images/Lesson-25px.png" border="0" alt="" title="">
 				</div>
 				<span class="lessonsdiv">Resources</span>
-				<div class="sidediv">
-				    <img border="0" alt="" title="" src="<?php echo __WEBROOT__;?>/images/right_arrow-15px.png">
-				</div>
+				<div class="sidediv"></div>
 			    </div>
 			    <div style="float: left;width: 100%;margin-top: 5px;">
 				<div id="content_1" class="content"></div>
@@ -118,7 +116,6 @@
 				    <span class="updiv" style="padding: 30px 0 28px 11px;"><a href="<?php echo __WEBROOT__?>/<?php echo trim($_GET['currslug']); ?>/" class="textnone"><?php echo $curname; ?></a> &raquo; <a href="<?php echo __WEBROOT__?>/<?php echo trim($_GET['currslug']); ?>/<?php echo trim($_GET['catgslug']); ?>/<?php echo trim($_GET['chpslug']); ?>/" class="textnone"><?php echo $chaptername; ?></a> &raquo; <?php echo $topicname; ?></span>
 				</div> 
 		    <?php
-				
 				$sql = "SELECT MIN(priority) as fPriority FROM avn_resources_detail WHERE topic_id = " . $topicID . " AND status = 1";
 				$priorityRS = $db->query("query", $sql);
 				if(!array_key_exists("response", $priorityRS))
