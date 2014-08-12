@@ -24,9 +24,11 @@
 		$currid = $_GET["currid"];
 		$where .= $where == "" ? "acm.category_id = " . mysql_escape_string($currid) : " AND acm.category_id = " . mysql_escape_string($currid);
 	}
-	$curPage = $_GET["page"];
+	
 	if(($curPage == "") || ($curPage == 0))
-		$curPage=1;
+		$curPage = 1;
+	else
+		$curPage = $_GET["page"];
 	//$recPerpage = 25;
 	//$countWhereClause = "";
 	//$selectWhereClause = "";
