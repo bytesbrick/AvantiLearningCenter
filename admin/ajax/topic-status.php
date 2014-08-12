@@ -6,8 +6,7 @@
 		include_once("../classes/cor.mysql.class.php");
 		$db = new MySqlConnection(CONNSTRING);
 		$db->open();
-		
-		$uniqueid = $_POST["resid"];
+	
 		$topicid = $_POST["topicid"];
 		$status= $_POST["status"];
 		$catgid = $_POST['catgid'];
@@ -15,9 +14,9 @@
 		$page = $_POST["page"];
 		$currid = $_POST["currid"];
 		if(strpos($topicid, ",") === false){
-			if(isset($status) && $status == "statusactive")
+			if(isset($status) && $status == 1)
 				$newstatus = 0;
-			if(isset($status) && $status == "statusinactive")
+			if(isset($status) && $status == 0)
 				$newstatus = 1;
 			
 			$dataToSave = array();
@@ -37,9 +36,9 @@
 			$allUID = explode(",", $topicid);
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
-					if(isset($status) && $status == "statusactive")
+					if(isset($status) && $status == 1)
 						$newstatus = 0;
-					if(isset($status) && $status == "statusinactive")
+					if(isset($status) && $status == 0)
 						$newstatus = 1;
 						
 					$dataToSave = array();
@@ -62,5 +61,5 @@
 	}
 	else
 		$resp = 0;
-	echo $resp . "|#|" . $currid . "|#|" . $chptid . "|#|" . $catgid . "|#|" . $page;
+	echo $resp . "|#|" . $currid . "|#|" . $chptid . "|#|" . $catgid . "|#|" . $page . "|#|" . $_POST["rid"];
 ?>
