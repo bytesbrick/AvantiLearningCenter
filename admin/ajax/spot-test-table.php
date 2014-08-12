@@ -85,7 +85,7 @@
     $sqlCurriculums = "select unique_id, curriculum_name from avn_curriculum_master acm";
     $rsCurriculums = $db->query("query", $sqlCurriculums);
     
-    $sqlSubjects = "select unique_id, category_name from ltf_category_master lcm";
+    $sqlSubjects = "select unique_id, category_name from ltf_category_master lcm WHERE curriculum_id = " . $currid;
     $rsSubjects = $db->query("query", $sqlSubjects);
     
     if($catgid != 0)
@@ -139,22 +139,10 @@
                         <th><a href="javascript:void(0);" onclick="javascript: _getSpotQesTable(<?php echo $currid; ?>,<?php echo $topicid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'qm.priority','asc');" class="sort">Priority</a></th>
         <?php
                 }
-            if($field == "qm.status"){
-                    if($sort == "asc"){
         ?>
-                        <th><a href="javascript:void(0);" onclick="javascript: _getSpotQesTable(<?php echo $currid; ?>,<?php echo $topicid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'qm.status','desc');" class="sort">Status <img src="./images/up-arr.png" border="0" /></a></th>
-        <?php
-                    }else{
-        ?>
-                        <th><a href="javascript:void(0);" onclick="javascript: _getSpotQesTable(<?php echo $currid; ?>,<?php echo $topicid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'qm.status','asc');" class="sort">Status <img src="./images/down-arr.png" border="0" /></a></th>
-        <?php
-                    }
-                }else{
-        ?>
-                        <th><a href="javascript:void(0);" onclick="javascript: _getSpotQesTable(<?php echo $currid; ?>,<?php echo $topicid; ?>,<?php echo $catgid; ?>,<?php echo $chptid; ?>, <?php echo $curPage; ?>, 'qm.status','asc');" class="sort">Status</a></th>
-        <?php
-                }
-            ?>
+		<th>
+		    Options
+		</th>
             </tr>
         </thead>
         <?php
@@ -165,30 +153,18 @@
         <tbody id="spotqesdata">
             <?php
                 $srno = $limitStart;
-                for($i=0; $i< count($r); $i++)
-                    {
+                for($i=0; $i< count($r); $i++){
                     $srno++;
                     if($i % 2 == 0)
                         $class = "lightyellow";
                     else
                         $class = "darkyellow";
         ?>
-        <tr class="<?php echo $class; ?>" id="Qesdatarow-<?php echo $i; ?>">
+        <tr class="<?php echo $class; ?>" id="Qesdatarow-<?php echo $r[$i]["unique_id"]; ?>">
                 <td>
                     <table>
                         <tr>
-                            <td><input class="fl" type="checkbox" name="chkspotqes[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $i; ?>);" /></td>
-                            <td>
-                                <div class="multimenu"><img src="./images/options.png" title="More actions" />
-                                    <div class="cb"></div>
-                                    <label>
-                                        <ul>
-                                            <li class="settings p1"><a href="edit-spot-test.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","cid","catgid","chptid","topicid","type","resp","page"), array($currid,$r[$i]["unique_id"],$catgid,$chptid,$topicid,1,"",$curPage)); ?>">Edit</li>
-                                            <li class="settings p2"><a href="javascript:void(0);" style="color:#f00;margin:0px 5px 0px 0px;" onclick="javascript:_deletequestion(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $topicid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>,'1',<?php echo $curPage; ?>)">Delete</a></li>
-                                        </ul>
-                                    </label>
-                                </div>
-                            </td>
+                            <td><input class="fl" type="checkbox" name="chkspotqes[]" id="chk-<?php echo $i; ?>" value="<?php echo $r[$i]["unique_id"]; ?>" onclick="javascript: _checked(this, <?php echo $r[$i]["unique_id"]; ?>);" /></td>
                         </tr>
                     </table>
                 </td>
@@ -203,12 +179,24 @@
                 <?php
                     }
                 ?>
-                <td><?php echo $r[$i]["question_name"]; ?></td>
+                <td><?php echo $r[$i]["question_name"]; ?>
+		<?php
+                    if($r[$i]["status"] == 1){
+                ?>
+                        <div class="clb"></div><a href="javascript:void(0);" style="color:#3c6435;" onclick="javascript: _chngQesStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>,1,1,<?php echo $curPage; ?>,this)"><small><span id="active-<?php echo $i; ?>"><?php echo "Active"; ?></small></a>
+                <?php
+                    }else{
+                ?>
+                        <div class="clb"></div><a href="javascript:void(0);" style="color:#f00;" onclick="javascript: _chngQesStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>,0,1,<?php echo $curPage; ?>,this)"><small><span id="active-<?php echo $i; ?>"><?php echo "Inactive"; ?></small></a>
+                <?php
+                    }
+                ?>
+		</td>
                 <td>
                     <?php echo $r[$i]["priority"]; ?>
                     <?php
                         $totlares = $db->query("query","SELECT COUNT(unique_id) as total FROM avn_question_master");
-                        $rd = $db->query("query","SELECT MAX(priority) as maxp,MIN(priority) as minp FROM avn_question_master WHERE topic_id = ". $topicid);
+                        $rd = $db->query("query","SELECT MAX(priority) as maxp,MIN(priority) as minp FROM avn_question_master WHERE topic_id = " . $topicid);
                         if($rd[0]['minp'] == $r[$i]['priority'])
                         {
                     ?>
@@ -239,18 +227,11 @@
                     <?php
                         }
                     ?>
-                </td>
-                 <?php
-                    if($r[$i]["status"] == 1){
-                ?>
-                        <td><a href="javascript:void(0);" id="inactivestatus" name="inactivestatus" style="color:#3c6435;" onclick="javascript: _chngQesStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>,this.id,1,<?php echo $curPage; ?>)"><?php echo "Active"; ?></a></td>
-                <?php
-                    }else{
-                ?>
-                        <td><a href="javascript:void(0);" id="activestatus" name="activestatus" style="color:#f00;" onclick="javascript: _chngQesStatus(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $r[$i]['topic_id']; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>,this.id,1,<?php echo $curPage; ?>)"><?php echo "Inactive"; ?></a></td>
-                <?php
-                    }
-                ?>
+		    </td>
+		    <td>
+		   <a href="edit-spot-test.php<?php echo filter_querystring($_SERVER["QUERY_STRING"], array("currid","cid","catgid","chptid","topicid","type","resp","page"), array($currid,$r[$i]["unique_id"],$catgid,$chptid,$topicid,1,"",$curPage)); ?>" class="ftblack">Edit | 
+                    <a href="javascript:void(0);" style="color:#f00;margin:0px 5px 0px 0px;" onclick="javascript:_deletequestion(<?php echo $currid; ?>,<?php echo $i; ?>,<?php echo $topicid; ?>,<?php echo $chptid; ?>,<?php echo $catgid; ?>,'1',<?php echo $curPage; ?>)">Delete</a>
+		</td>
             </tr>
         <?php
                 }
