@@ -5,7 +5,7 @@
 	include("./includes/checkLogin.php");
 	$db = new MySqlConnection(CONNSTRING);
 	$db->open();
-	session_start();
+	session_start(); 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -98,7 +98,7 @@
 				<?php
 					}
 				?>
-					<div id="bulkAct"><a href="javascript:void(0);" id="btnDel" onclick="javascript: _deletechapter(-1,<?php echo $catgid; ?>,<?php echo $curPage; ?>);" class="ml5">Delete</a></div></div><!-- End of about -->
+					<div id="bulkAct"><a href="javascript:void(0);" id="btnDel" onclick="javascript: _deletechapter(<?php echo $currid; ?>,-1,<?php echo $catgid; ?>,<?php echo $curPage; ?>);" class="ml5">Delete</a></div></div><!-- End of about -->
 			<?php
 				unset($rsCurriculums);
 				unset($rsSubjects);
