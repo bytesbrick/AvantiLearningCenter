@@ -9,14 +9,15 @@
 		
 		$uId = $_POST["uniqueid"];
 		$page = $_POST["page"];
+		$rid = $_POST["rid"];
 		if(strpos($uId, ",") === false){
 			$wheretodelete  = array();
-			$rescur = array();
 			$wheretodelete["unique_id"] = $uId;
-			$rescur['curriculum_id'] = $uId;
 			
-			$rescurriculum = $db->delete("avn_resources_curriculum",$rescur);
-			if($rescurriculum["response"] == "SUCCESS"){
+			$rescurriculum = $db->query("query","SELECT unique_id FROM ltf_category_master WHERE curriculum_id = " . $uId);
+			if(!array_key_exists("response", $rescurriculum))
+				$resp = 5;
+			else{
 				$st = $db->delete("avn_curriculum_master",$wheretodelete);
 				if($st["response"] == "SUCCESS"){
 					$resp = 1;
@@ -25,22 +26,21 @@
 					unset($st);
 					unset($wheretodelete);
 				}
-			}else
-				$resp = 3;
 				unset($rescurriculum);
 				unset($rescur);
+			}
 		}
 		else{
 			$allUID = explode(",", $uId);
 			for($i = 0; $i < count($allUID); $i++){
 				if($allUID[$i] != ""){
 					$wheretodelete  = array();
-					$rescur = array();
 					$wheretodelete["unique_id"] = $allUID[$i];
-					$rescur['curriculum_id'] = $allUID[$i];
 					
-					$rescurriculum = $db->delete("avn_resources_curriculum",$rescur);
-					if($rescurriculum["response"] == "SUCCESS"){
+					$rescurriculum = $db->query("query","SELECT unique_id FROM ltf_category_master WHERE curriculum_id = " . $allUID[$i]);
+					if(!array_key_exists("response", $rescurriculum))
+						$resp = 6;
+					else{
 						$st = $db->delete("avn_curriculum_master",$wheretodelete);
 						if($st["response"] == "SUCCESS")
 							$resp = 3;
@@ -49,10 +49,7 @@
 						unset($st);
 						unset($wheretodelete);
 						unset($rescurriculum);
-					}else
-						$resp = 6;
-						unset($rescurriculum);
-						unset($rescur);
+					}
 				}
 			}
 		}
@@ -60,5 +57,5 @@
 	}
 	else
 		$resp = 0;
-	echo $resp . "|#|" . $page;
+	echo $resp . "|#|" . $page . "|#|" . $uId;
 ?>

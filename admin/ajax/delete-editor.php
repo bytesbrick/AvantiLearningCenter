@@ -36,9 +36,8 @@
 			}
 		}
 		$db->close();
-		
 	}
 	else
-		$resp = "0";
-	echo $resp . "|#|" . $page;
+		$resp = 0;
+	echo $resp . "|#|" . $page . "|#|" . $uId;
 ?>

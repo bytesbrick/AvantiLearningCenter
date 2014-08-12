@@ -19,13 +19,16 @@
 			$dataToWhere['user_ref_id'] = $uId;
 			$r = $db->delete("avn_login_master",$dataToWhere);
 			if($r["response"] == "SUCCESS"){
-				$admin = $db->delete("ltf_admin_usermaster",$dataToWhere);
+				$dataToWhereadmin = array();
+				$dataToWhereadmin['user_ref_id'] = $uId;
+				$admin = $db->delete("ltf_admin_usermaster",$dataToWhereadmin);
 				if($admin["response"] == "SUCCESS")
 					$resp = 1;
 				else
 					$resp = 2;
+				unset($admin);
+				unset($dataToWhereadmin);
 			}
-			unset($admin);
 			unset($dataToWhere);
 			unset($r);
 		}
@@ -42,16 +45,17 @@
 					$dataToWhere = array();
 					$dataToWhere['user_ref_id'] = $allUID[$i];
 					$r = $db->delete("avn_login_master",$dataToWhere);
-					unset($dataToWhere);
-					unset($r);
 					if($r["response"] == "SUCCESS"){
-						$admin = $db->delete("ltf_admin_usermaster",$dataToWhere);
+						$dataToWhereadmin = array();
+						$dataToWhereadmin['user_ref_id'] = $allUID[$i];
+						$admin = $db->delete("ltf_admin_usermaster",$dataToWhereadmin);
 						if($admin["response"] == "SUCCESS")
 							$resp = 3;
 						else
 							$resp = 4;
+						unset($admin);
+						unset($dataToWhereadmin);
 					}
-					unset($admin);
 					unset($dataToWhere);
 					unset($r);
 				}
@@ -61,5 +65,5 @@
 	}
 	else
 		$resp = 0;
-		echo $resp . "|#|" . $page;
+		echo $resp . "|#|" . $page . "|#|" . $uId;
 ?>

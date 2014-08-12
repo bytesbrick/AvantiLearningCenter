@@ -58,5 +58,5 @@
 	}
 	else
 		$resp = 0;
-		echo $resp . "|#|" . $page;
+		echo $resp . "|#|" . $page . "|#|" . $uId;
 ?>
