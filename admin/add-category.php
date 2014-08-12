@@ -83,16 +83,18 @@
 									<select id="ddlcurriculum" name="ddlcurriculum" class="dropdown mt10">
 									<?php
 										$selcur = $db->query("query","SELECT unique_id ,curriculum_name FROM avn_curriculum_master ORDER BY curriculum_name");
-										for($i=0; $i<count($selcur); $i++){
-											if($currid == $selcur[$i]["unique_id"]){
-									?>
-											<option value="<?php echo $selcur[$i]["unique_id"]; ?>"selected><?php echo $selcur[$i]["curriculum_name"]; ?></option>
+										if(!array_key_exists("response", $selcur)){
+											for($i=0; $i<count($selcur); $i++){
+												if($currid == $selcur[$i]["unique_id"]){
+										?>
+												<option value="<?php echo $selcur[$i]["unique_id"]; ?>"selected><?php echo $selcur[$i]["curriculum_name"]; ?></option>
 									<?php
-											}
-										else{
+												}
+											else{
 									?>
-											<option value="<?php echo $selcur[$i]["unique_id"]; ?>"><?php echo $selcur[$i]["curriculum_name"]; ?></option>
+												<option value="<?php echo $selcur[$i]["unique_id"]; ?>"><?php echo $selcur[$i]["curriculum_name"]; ?></option>
 									<?php
+												}
 											}
 										}
 										unset($selcur);
@@ -169,7 +171,6 @@
 								<td class="chaptertext">Curriculum</td>
 								<td>
 									<select id="ddlcurriculum" name="ddlcurriculum" class="dropdown mt10">
-										<option value="0">Select one</option>
 									<?php
 										$selcur = $db->query("query","SELECT unique_id ,curriculum_name FROM avn_curriculum_master ORDER BY curriculum_name");
 										for($i=0; $i<count($selcur); $i++){
@@ -204,7 +205,7 @@
 							<tr>
 								<td class="chaptertext">Prefix</td>
 								<td><input type="text" name="prefix" id="prefix" class="inputseacrh mt10" placeholder="Prefix" />
-									<div id="imgchk" class="imgslug"></div>
+									<div id="imgslug" class="imgslug"></div>
 									<div id="msgchk" class="chkedmsg"></div>
 								</td>
 							</tr>
