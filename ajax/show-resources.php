@@ -31,7 +31,6 @@
 		
 		$res = $db->query("query","SELECT unique_id FROM avn_resources_detail WHERE topic_id = " . $topicID . " AND priority = " . $priority . " AND status = 1 ORDER BY priority ASC");
 		$selresources = $db->query("query","SELECT unique_id FROM avn_user_resource_item WHERE resource_item_id = " . $res[0]["unique_id"] . " AND userid = '" . $userid . "'");
-		
 		if($selresources["response"] == "ERROR"){
 			$dataToSave = array();
 			$dataToSave["userid"] = $userid;
@@ -47,38 +46,54 @@
 		}
 		else
 			$updatelasteview = $db->query("query","UPDATE avn_user_resource_item SET last_view_date = now() WHERE resource_item_id = " . $res[0]["unique_id"] . " AND userid = '" . $userid . "'");
-		
-	
-				$sql = "SELECT rd.* FROM avn_resources_detail rd INNER JOIN avn_topic_master tm ON rd.topic_id = tm.unique_id WHERE rd.topic_id = " . $topicID . " AND rd.status = 1 ORDER BY rd.priority ASC";
-				       $resourceRS = $db->query("query", $sql);
-				       if(!array_key_exists("response", $resourceRS)){
-				   
-							$resources .= "<div class='clb'></div>";
-					   
-						   for($c = 0; $c <count($resourceRS); $c++){
-								$title = $resourceRS[$c]['title'];
-								$resPriority = $resourceRS[$c]['priority'];
-							   $seluserviews = $db->query("query","SELECT COUNT(aur.unique_id) as 'resitem' FROM avn_resources_detail rd INNER JOIN avn_user_resource_item aur ON aur.resource_item_id = rd.unique_id WHERE aur.userid = '" . $userid . "' AND aur.resource_item_id = " . $resourceRS[$c]["unique_id"]);
-							   for($j = 0; $j <count($seluserviews); $j++){
-					
-								$resources .="<div class='headtext'>";
-					   
-							   if($seluserviews[$j]["resitem"] == 1){
-								   $image = "<img src=\"" . __WEBROOT__ . "/images/correct-ans.png\" border=\"0\" alt=\"viewed\" title=\"viewed\" width=\"10px\" height=\"10px\" class=\"mr5\" />";
-							   }
-							   else{
-								   $image = "<img src=\"" . __WEBROOT__ . "/images/inactiveicon.png\" border=\"0\" alt=\"notviewed\" title=\"notviewed\" width=\"12px\" height=\"12px\" class=\"mr5\" />";
-							   }
-					   
-								$resources .="<span class='fl'>$image</span>";
-								$resources .="<div style='float: left;width: 80%;'><a href='javascript:void(0);' class='textnone' onclick='javascript: _changeURL($resPriority);_link(\"$encTopicID\",$resPriority);'>$title</a></div></div>";
-								$resources .="<div class='clb'></div>";
-					   
-							   }
+				$usertype = $arrUserInfo["user_type"];
+				$visibleUser = '';
+				
+				if($usertype == "Student"){
+					$visibleUser = 1;
+				}
+				elseif($usertype == "Teacher"){
+					$visibleUser = 2;
+				}
+				elseif($usertype == "Manager"){
+					$visibleUser = 3;
+				}
+				$sql = "SELECT rd.* FROM avn_resources_detail rd INNER JOIN avn_topic_master tm ON rd.topic_id = tm.unique_id INNER JOIN avn_resource_visiblity_mapping arvm ON rd.unique_id = arvm.resource_id WHERE arvm.visiblity = " . $visibleUser . " AND rd.topic_id = " . $topicID . " AND rd.status = 1 ORDER BY rd.priority ASC";
+				//$resources .= $sql;
+				$resourceRS = $db->query("query", $sql);
+				//print_r($resourceRS);
+				if(!array_key_exists("response", $resourceRS)){
+					$resources .= "<div class='clb'></div>";
+					for($c = 0; $c <count($resourceRS); $c++){
+						//$selUser = $db->query("query", "SELECT ard.title,arvm.resource_id FROM avn_resource_visiblity_mapping arvm INNER JOIN avn_resources_detail ard ON ard.unique_id = arvm.resource_id WHERE arvm.visiblity = " . $visibleUser . " AND arvm.resource_id = " . $resourceRS[$c]["unique_id"]);
+						
+						////print_r($selUser);
+						//if(!array_key_exists("response", $selUser)){
+						//	for($k = 0; $k < count($selUser); $k++)	{
+						//		if($resourceRS[$c]["unique_id"] == $selUser[$k]["resource_id"])
+						//		
+						//	}
+						//}
+						$title = $resourceRS[$c]['title'];
+						$resPriority = $resourceRS[$c]['priority'];
+						$seluserviews = $db->query("query","SELECT COUNT(aur.unique_id) as 'resitem' FROM avn_resources_detail rd INNER JOIN avn_user_resource_item aur ON aur.resource_item_id = rd.unique_id WHERE aur.userid = '" . $userid . "' AND aur.resource_item_id = " . $resourceRS[$c]["unique_id"]);
+						for($j = 0; $j <count($seluserviews); $j++){
+						     $resources .="<div class='headtext'>";				
+							if($seluserviews[$j]["resitem"] == 1){
+							       $image = "<img src=\"" . __WEBROOT__ . "/images/correct-ans.png\" border=\"0\" alt=\"viewed\" title=\"viewed\" width=\"10px\" height=\"10px\" style=\"margin:5px 5px 0 0\" />";
 							}
-				       }
+							else{
+							       $image = "<img src=\"" . __WEBROOT__ . "/images/inactiveicon.png\" border=\"0\" alt=\"notviewed\" title=\"notviewed\" width=\"12px\" height=\"12px\" style=\"margin:3px 5px 0 0\" />";
+							}
+						      $resources .="<span class='fl'>$image</span>";
+						      $resources .="<div style='float: left;width: 80%;'><a href='javascript:void(0);' class='textnone' onclick='javascript: _changeURL($resPriority);_link(\"$encTopicID\",$resPriority);'>$title</a></div></div>";
+						      $resources .="<div class='clb'></div>";
+				 
+						}
+					}
+				}
 			$contentType = "";
-			$sql = "SELECT * FROM avn_resources_detail WHERE topic_id = " . $topicID . " and priority = " . $priority . " AND status = 1";
+			$sql = "SELECT * FROM avn_resources_detail rd INNER JOIN avn_resource_visiblity_mapping arvm ON arvm.resource_id = rd.unique_id WHERE topic_id = " . $topicID . " and priority = " . $priority . " AND status = 1";
 			$priorityRS = $db->query("query", $sql);
 			if(!array_key_exists("response", $priorityRS)){			
 				$contentType = strtolower($priorityRS[0]["content_type"]);
@@ -92,15 +107,15 @@
 				$html .="<input type='hidden' name='hdnSlug' id='hdnSlug' value='$slug'>";
 				switch($contentType){
 					case "content":
-					$html .="<div class='resourceactive'>$contentTitle</div>";
-					$html .="<div class='ansoption' style='font-size: 15px;padding:0px 0px 10px 0px;margin-bottom: 15px;min-height: 338px;'>";
-					$html .="<div class='preread'>$contentText</div></div>";
+						$html .="<div class='resourceactive'>$contentTitle</div>";
+						$html .="<div class='ansoption' style='font-size: 15px;padding:0px 0px 10px 0px;margin-bottom: 15px;min-height: 338px;'>";
+						$html .="<div class='preread'>$contentText</div></div>";
 					break;
 					case "spot":
-					if(isset($arrUserInfo["user_type"])&& $arrUserInfo["user_type"] == "Manager" || $arrUserInfo["user_type"] == "Teacher"){
-						$sqlCheckSpotTest = "select qm.unique_id,qm.question_name,qm.option1,qm.option2,qm.option3,qm.option4,qm.correct_answer FROM avn_question_master qm INNER JOIN avn_topic_master tm ON tm.unique_id = qm.topic_id WHERE tm.unique_id = ". $topicID." and qm.type= 1 and qm.status = 1 ORDER BY qm.priority ASC";
-						$rsCheckSpotTest = $db->query("query", $sqlCheckSpotTest);
-						if(!array_key_exists("response", $rsCheckSpotTest)){
+						if(isset($arrUserInfo["user_type"])&& $arrUserInfo["user_type"] == "Manager" || $arrUserInfo["user_type"] == "Teacher"){
+							$sqlCheckSpotTest = "select qm.unique_id,qm.question_name,qm.option1,qm.option2,qm.option3,qm.option4,qm.correct_answer FROM avn_question_master qm INNER JOIN avn_topic_master tm ON tm.unique_id = qm.topic_id WHERE tm.unique_id = ". $topicID." and qm.type= 1 and qm.status = 1 ORDER BY qm.priority ASC";
+							$rsCheckSpotTest = $db->query("query", $sqlCheckSpotTest);
+							if(!array_key_exists("response", $rsCheckSpotTest)){
 								$html .="<div class='clb'></div>";
 								$html .="<div class='resourceactive'>Spot Test</div>";							
 								$html .="<div class='clb'></div>";
@@ -117,7 +132,7 @@
 									$uid = $rsCheckSpotTest[$stQ]['unique_id'];
 									$html .="<input type='hidden' name='hdnqesid[]' id='hdnqesid-$uid' value='$uid' />";
 									$html .="<tr>";
-									$html .="<td width='5%' valign='top'>Q $counter:</td>";
+									$html .="<td width='7%' valign='top'>Q $counter:</td>";
 									$html .="<td colspan='2'>$questions</td>";
 									$html .="</tr>";
 									$html .="<tr>";
@@ -162,12 +177,12 @@
 								$html .="</form>";
 								$html .="</div>";
 							
+							}
 						}
-					}
-					elseif(isset($arrUserInfo["user_type"])&& $arrUserInfo["user_type"] == "Student"){
-					$sqlCheckSpotTest = "select qm.unique_id,qm.question_name,qm.option1,qm.option2,qm.option3,qm.option4,qm.correct_answer from avn_question_master qm INNER JOIN avn_topic_master tm ON tm.unique_id = qm.topic_id LEFT OUTER JOIN user_test_answer uta ON uta.test_id = qm.unique_id where uta.test_id is NULL AND tm.unique_id = ". $topicID." and qm.type= 1 and qm.status =1 ORDER BY qm.priority ASC";
-					$rsCheckSpotTest = $db->query("query", $sqlCheckSpotTest);
-					if(array_key_exists("response", $rsCheckSpotTest)){
+						elseif(isset($arrUserInfo["user_type"])&& $arrUserInfo["user_type"] == "Student"){
+							$sqlCheckSpotTest = "select qm.unique_id,qm.question_name,qm.option1,qm.option2,qm.option3,qm.option4,qm.correct_answer from avn_question_master qm INNER JOIN avn_topic_master tm ON tm.unique_id = qm.topic_id LEFT OUTER JOIN user_test_answer uta ON uta.test_id = qm.unique_id where uta.test_id is NULL AND tm.unique_id = ". $topicID." and qm.type= 1 and qm.status =1 ORDER BY qm.priority ASC";
+							$rsCheckSpotTest = $db->query("query", $sqlCheckSpotTest);
+						if(array_key_exists("response", $rsCheckSpotTest)){
 						$sqlSpotTestQuestions = "select distinct qm.unique_id,qm.question_name,qm.option1,qm.option2,qm.option3,qm.option4,qm.correct_answer,ua.is_correct,ua.answer_option from avn_question_master qm inner join avn_topic_master tm ON tm.unique_id = qm.topic_id inner join user_test_answer ua on ua.test_id = qm.unique_id where tm.unique_id = ". $topicID."  and qm.type = 1 and ua.user_id = '" .$userid . "' ORDER BY qm.priority ASC";
 						$rsSpotTestQuestions = $db->query("query", $sqlSpotTestQuestions);
 						//print_r($rsSpotTestQuestions);
@@ -183,7 +198,7 @@
 							$counter = ($stQ + 1);
 							$question = $rsSpotTestQuestions[$stQ]['question_name'];
 							$html .="<tr>";
-							$html .="<td width='5%' valign='top'>Q $counter:</td>";
+							$html .="<td width='7%' valign='top'>Q $counter:</td>";
 							$html .="<td>$question</td>";
 							$html .="</tr>";
 							for($opt = 1; $opt <= 4; $opt++){
@@ -239,7 +254,7 @@
 							$uid = $rsCheckSpotTest[$stQ]['unique_id'];
 							$html .="<input type='hidden' name='hdnqesid[]' id='hdnqesid-$uid' value='$uid' />";
 							$html .="<tr>";
-							$html .="<td width='5%' valign='top'>Q $counter:</td>";
+							$html .="<td width='7%' valign='top'>Q $counter:</td>";
 							$html .="<td colspan='2'>$questions</td>";
 							$html .="</tr>";
 							$html .="<tr>";
@@ -377,7 +392,7 @@
 								$question = $rsGetAllQuest[$stQ]['question_name'];
 								$html .="<input type='hidden' name='hdnqesid' id='hdnqesid' value='$rsGetAllQuest[$stQ]['unique_id']' />";
 								$html .="<tr>";
-								$html .="<td width='5%' valign='top'>Q $counter:</td>";
+								$html .="<td width='7%' valign='top'>Q $counter:</td>";
 								$html .="<td>$question</td>";
 								$html .="</tr>";
 								for($opt = 1; $opt <= 4; $opt++){
@@ -481,13 +496,13 @@
 							$html .="</tr>";
 							$html .="</table>";
 							$html .="<input type='hidden' name='hdnctoption' id='hdnctoption' value='$ctoptionid' />";
-						if($arrUserInfo['user_type'] == 'Student'){
-							$html .="<div class='fl mt20'><input type='submit' name='btnSubmit' id='btnSubmit' class='btnSIgn cursor' value='Submit'></div>";
+							if($arrUserInfo['user_type'] == 'Student'){
+								$html .="<div class='fl mt20'><input type='submit' name='btnSubmit' id='btnSubmit' class='btnSIgn cursor' value='Submit'></div>";
+							}
+							$html .="</form>";
+							$html .="</div>";
 						}
-						$html .="</form>";
-						$html .="</div>";
 					}
-				}
 				}
 			}
 		}else{

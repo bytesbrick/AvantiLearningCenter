@@ -65,16 +65,16 @@
                         $class = "lightgrey";
                     else
                         $class = "white";
-                    $html .="<tr class= 'ffhelvetica " . $class ."' id='leaduserRow-". $rsLessonPlan[$i]['unique_id'] . "'>";
-                    $html .="<td><table cellpadding='0' cellspacing='0' border='0'><tr>";
-                    $html .="<td style='padding:0px !important;'><input type='checkbox' name='chkUser[]' id='chk-". $rsLessonPlan[$i]['unique_id'] . "' value=" . $rsLessonPlan[$i]['unique_id'] . " onclick='javascript: _checked(this, $i,1);' />";
-                    $html .="</td>";
+                    $html .="<tr class= '" . $class ."' id='leaduserRow-". $rsLessonPlan[$i]['unique_id'] . "'>";
+                    $html .="<td width='90px'><table cellpadding='0' cellspacing='0' border='0'><tr>";
+                    $html .="<td style='padding-left:6px !important;'><span class='checkboxFive'><input type='checkbox' name='chkUser[]' id='chk-". $rsLessonPlan[$i]['unique_id'] . "' value=" . $rsLessonPlan[$i]['unique_id'] . " onclick='javascript: _checked(this, $i,1);' />";
+                    $html .="<label for='chk-". $rsLessonPlan[$i]['unique_id'] . "'></label></span></td>";
                     if($isStarred){
-                        $html .="<td style='padding:0px !important;'><a href='javascript: void(0);' onclick='javascript: _singleStarred(" . $rsLessonPlan[$i]['unique_id'] . ", 0, this);'><img src=\"" . __WEBROOT__ . "/images/star.png\" border=\"0\" id=\"btnStar-" . $rsLessonPlan[$i]['unique_id'] . "\" alt=\"Starred\" title=\"Starred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></a></td>";
+                        $html .="<td style='padding-left:15px !important;'><a href='javascript: void(0);' onclick='javascript: _singleStarred(" . $rsLessonPlan[$i]['unique_id'] . ", 0, this);'><img src=\"" . __WEBROOT__ . "/images/star.png\" border=\"0\" id=\"btnStar-" . $rsLessonPlan[$i]['unique_id'] . "\" alt=\"Starred\" title=\"Starred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></a></td>";
                         $selcompletetopics = "SELECT topic_id FROM avn_user_topic_mapping WHERE topic_id = " . $rsLessonPlan[$i]['unique_id'];
                         $selCompletedTopicsRS = $db->query("query", $selcompletetopics);
                         if(!array_key_exists("response", $selCompletedTopicsRS))
-                        $html .="<td style='padding:0px !important;'><img src=\"" . __WEBROOT__ . "/images/correct-ans.png\" border=\"0\" id=\"btnStar\" alt=\"Starred\" title=\"Starred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></td>";
+                        $html .="<td style='padding-left:15px !important;'><img src=\"" . __WEBROOT__ . "/images/correct-ans.png\" border=\"0\" id=\"btnStar\" alt=\"Starred\" title=\"Starred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></td>";
                         else
                         $html .="<td>&nbsp;</td>";
                         unset($selCompletedTopicsRS);
@@ -82,18 +82,20 @@
                         $selstarredtopics = "SELECT topic_id FROM avn_user_topic_starred WHERE topic_id = " . $rsLessonPlan[$i]['unique_id'];
                         $selstarredtopicsRS = $db->query("query", $selstarredtopics);
                         if(!array_key_exists("response", $selstarredtopicsRS))
-                        $html .="<td style='padding:0px !important;'><a href='javascript: void(0);' onclick='javascript: _singleStarred(" . $rsLessonPlan[$i]['unique_id'] . ", 0, this);'><img src=\"" . __WEBROOT__ . "/images/star.png\" border=\"0\" id=\"btnStar-" . $rsLessonPlan[$i]['unique_id'] . "\" alt=\"Starred\" title=\"Starred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></a></td>";
+                            $html .="<td style='padding-left:15px !important;'><a href='javascript: void(0);' onclick='javascript: _singleStarred(" . $rsLessonPlan[$i]['unique_id'] . ", 0, this);'><img src=\"" . __WEBROOT__ . "/images/star.png\" border=\"0\" id=\"btnStar-" . $rsLessonPlan[$i]['unique_id'] . "\" alt=\"Starred\" title=\"Starred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></a></td>";
                         else
-                        $html .="<td style='padding:0px !important;'><a href='javascript: void(0);' onclick='javascript: _singleStarred(" . $rsLessonPlan[$i]['unique_id'] . ", 1, this);'><img src=\"" . __WEBROOT__ . "/images/unstar.png\" border=\"0\" id=\"btnStar-" . $rsLessonPlan[$i]['unique_id'] . "\" alt=\"Unstarred\" title=\"Unstarred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></a></td>";
+                            $html .="<td style='padding-left:15px !important;'><a href='javascript: void(0);' onclick='javascript: _singleStarred(" . $rsLessonPlan[$i]['unique_id'] . ", 1, this);'><img src=\"" . __WEBROOT__ . "/images/unstar.png\" border=\"0\" id=\"btnStar-" . $rsLessonPlan[$i]['unique_id'] . "\" alt=\"Unstarred\" title=\"Unstarred\" width=\"17px\" height=\"17px\" class=\"ml10\" /></a></td>";
                         unset($selstarredtopicsRS);
                     }
                     $html .= "</tr></table></td>";
                     $html .="<td>" . $iCounter . "</td>";
-                    $html .= "<td><a href='" .  __WEBROOT__ . "/" . $curslug . "/" . $rsLessonPlan[$i]['category_slug'] . "/" . $rsLessonPlan[$i]['chapter_slug'] . "/" . $rsLessonPlan[$i]['topic_slug'] . "/' style='color: #333;'>";
-                    $html .= $rsLessonPlan[$i]['topic_code'] . " - " . $rsLessonPlan[$i]['topic_name'] . "<br /><small>" . $rsLessonPlan[$i]['chapter_name'] . " | " . $rsLessonPlan[$i]['category_name']  . "</small>";
+                    $html .="<td><span class='ft14'>" . $rsLessonPlan[$i]['topic_code'] . "</span></td>";
+                    $html .= "<td><a href='" .  __WEBROOT__ . "/" . $curslug . "/" . $rsLessonPlan[$i]['category_slug'] . "/" . $rsLessonPlan[$i]['chapter_slug'] . "/" . $rsLessonPlan[$i]['topic_slug'] . "/' class='title ft14' style='word-wrap: break-word;'>";
+                    $html .= "" . $rsLessonPlan[$i]['topic_name'] . "<br /><span class='black'>" . $rsLessonPlan[$i]['chapter_name'] . " </span>";
                     $html .= "</a></td>";
-                    $html .= "<td>";
-                    $html .= "<a style='color: #666666;' href='" .  __WEBROOT__ . "/" . $curslug . "/" . $rsLessonPlan[$i]['category_slug'] . "/" . $rsLessonPlan[$i]['chapter_slug'] . "/" . $rsLessonPlan[$i]['topic_slug'] . "/' class='topichover'><img src=\"" . __WEBROOT__ . "/images/arrow.png\" border=\"0\" alt=\"View resources\" title=\"View resources\" class=\"ml10\" /></a>";
+                     $html .="<td><span class='ft14'>" . $rsLessonPlan[$i]['category_name'] . "</span></td>";
+                    $html .= "<td align='center'>";
+                    $html .= "<a href='" .  __WEBROOT__ . "/" . $curslug . "/" . $rsLessonPlan[$i]['category_slug'] . "/" . $rsLessonPlan[$i]['chapter_slug'] . "/" . $rsLessonPlan[$i]['topic_slug'] . "/' class='topichover'><img src=\"" . __WEBROOT__ . "/images/resourceimg.png\" border=\"0\" alt=\"View resources\" title=\"View resources\" class=\"ml10\" /></a>";
                     $html .="</td>";
                     $html .="</tr>";
                     $iCounter++;                           
@@ -101,8 +103,9 @@
                 $resp = 1;
                 if(count($rsLessonPlan) > $recPerPage){
                     $html .="<tr class='ffhelvetica'>";
-                    $html .="<td colspan='4' style='text-align:center;padding:20px 0 0 0;'><div class='showmore'><a href='javascript: void(0);' onclick='javascript: _updateParam(\"page\", \"" . ($page + 1) . "\");_applyFilter();'>Show more</a></div></td>";
+                    $html .="<td colspan='4' style='text-align:center;padding:20px 0 0 0;'><div class='showmore'><a href='javascript: void(0);' onclick='javascript: _updateParam(\"page\", \"" . ($page + 1) . "\");_applyFilter();' style='color:#c1c1c1;'>Show more</a></div></td>";
                     $html .="</tr>";
+                    
                 }
             }
             unset($rsLessonPlan);
