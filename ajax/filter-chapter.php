@@ -46,11 +46,13 @@
 						$islast = $r[$i]['unique_id'];
 						$lastchpPriority = $r[$i]["priority"];
 						$html.= "<tr>";
-						$html.="<td width='60px'>";
-						$html.="<div class='presondiv' style='margin-right:15px;'><a href='" . __WEBROOT__ . "/" . trim($r[$i]["curriculum_slug"]) . "/" . trim($r[$i]["category_slug"]) . "/" . trim($r[$i]["chapter_slug"]) . "/' class='fl' ><img src='" . __WEBROOT__ . "/admin/images/upload-image/".$r[$i]['chapter_image']."' width='80' class='noborder' style='padding:0 10px;'></a></div>";
-						$html.="</td>";
-						$html.="<td valign='top'><a href='" . __WEBROOT__ . "/" . trim($r[$i]["curriculum_slug"]) . "/" . trim($r[$i]["category_slug"]) . "/" . trim($r[$i]["chapter_slug"]) . "/' style='color: #333;' class='ffhelvetica'>" . $r[$i]['chapter_code'] . " - ".ucwords($r[$i]['chapter_name'])."</a><br />";
+						//$html.="<td width='60px'>";
+						//$html.="<div class='presondiv' style='margin-right:15px;'><a href='" . __WEBROOT__ . "/" . trim($r[$i]["curriculum_slug"]) . "/" . trim($r[$i]["category_slug"]) . "/" . trim($r[$i]["chapter_slug"]) . "/' class='fl' ><img src='" . __WEBROOT__ . "/admin/images/upload-image/".$r[$i]['chapter_image']."' width='80' class='noborder' style='padding:0 10px;'></a></div>";
+						//$html.="</td>";
+						$html.="<td valign='top'><a href='" . __WEBROOT__ . "/" . trim($r[$i]["curriculum_slug"]) . "/" . trim($r[$i]["category_slug"]) . "/" . trim($r[$i]["chapter_slug"]) . "/' style='color: #333;' class='ffhelvetica'>" . $r[$i]['chapter_code'] . "</a></td>";
 						
+						$html.="<td valign='top'>";
+						$html.="<span class='title ft14'>".ucwords($r[$i]['chapter_name'])."</span>";
 						$hrs = $db->query("query","SELECT SUM(classwork_hrs) as sumchp , SUM(homework_hrs) as sumhmwrk from avn_topic_master where chapter_id = ". $r[$i]['unique_id']);
 						$calclasshrs = intval($hrs[0]['sumchp']/60);
 						$calclassmins =  $hrs[0]['sumchp'] % 60;
@@ -114,10 +116,10 @@
 							$topic ="<a href='" . __WEBROOT__ . "/" . trim($r[$i]["curriculum_slug"]) . "/" . trim($r[$i]["category_slug"]) . "/" . trim($r[$i]["chapter_slug"]) . "/' class='ffhelvetica'  style='color:#333; font-size:11px;'> 0 Topic</a>";
 						}
 						$desc = $r[$i]['chapter_desc'];
-						$html.="<small class='ffhelvetica' style='color:#333;font-size:12px;'><div style='width:100%'>";
+						$html.="<small class='ffhelvetica' style='color:#333;font-size:12px;'><div style='width:100%;padding-top:5px;'>";
 						$html.="<div class='fl' style='width:100%;'>";
-						if(strlen($desc) > 90){
-							$html.="<span class='fl'>" . substr($desc, 0, 90) . "...&nbsp;<span>";
+						if(strlen($desc) > 70){
+							$html.="<span class='fl'>" . substr($desc, 0, 70) . "...&nbsp;<span>";
 							$html.="<span class='morespan'><a href='javascript:void(0);' class='morelink'>More</a>";
 							$html.="<div class=\"morecontent\"><img src=\"" . __WEBROOT__ . "/images/up-arrow.jpg\" class=\"fr\" /><div class=\"mdesc\"><div class=\"txt\">" . $desc . "</div></div></div></span>";
 						} else {
@@ -125,15 +127,16 @@
 						}
 						$html.="</div>";
 						$html.="</div>";
-						$html.="</small><div class='fl'><span class='fl ffhelvetica'><small style='color:#333 !important; font-size:11px;'>" . $r[$i]["category_name"] . "&nbsp;|&nbsp;</small></span><small class='ffhelvetica' style='font-size:11px;color:#333;'>" . $topic . "&nbsp;|&nbsp;</small><small class='ffhelvetica' style='color:#333;font-size:11px';>". $time . "&nbsp;|&nbsp;". $Htime . "</small></span></div>";
+						//$html.="</small><div class='fl'><span class='fl ffhelvetica'><small style='color:#333 !important;'></small></span><small class='ffhelvetica' style='font-size:11px;color:#333;'>" . $topic . "&nbsp;|&nbsp;</small><small class='ffhelvetica' style='color:#333;font-size:11px';>". $time . "&nbsp;|&nbsp;". $Htime . "</small></span></div>";
 						$html.="</td>";
+						$html.="<td><span class='fl ft14 black'>".ucwords($r[$i]['category_name'])."</span></td>";
 						$html.="<td>";
 						$html.="<span class='fr' style='margin-right:30px;'><a href='" . __WEBROOT__ . "/" . trim($r[$i]["curriculum_slug"]) . "/" . trim($r[$i]["category_slug"]) . "/" . trim($r[$i]["chapter_slug"]) . "/' class='fl' ><img src='" . __WEBROOT__ . "/images/arrow.png' class='fr'></a></span>";
 						$html.="</td>";
 						$html.="</tr>";
 						$html.="<tr>";
-						$html.="<td colspan='4'>";
-						$html.="<span style='border-bottom: 1px solid #ccc;margin-bottom: 10px;float: left;width: 100%;'></span>";
+						$html.="<td colspan='4' style='padding:0 !important;'>";
+						$html.="<span style='border-bottom: 1px solid #ccc;float: left;width: 100%;'></span>";
 						$html.="</td>";
 						$html.="</tr>";
 						unset($hrs);
