@@ -17,10 +17,9 @@ body{margin:0;padding:0;font-family: rock; font-weight: normal}
 div,ul,li,p,h1,h2,h3,h4,h5,a{outline:0;text-decoration:none;margin:0;padding:0}
 .mainbody{float: left;width: 100%;}
 .fl{float: left;}
-#header{width:100%; float: left}
+#header{width:99%; float: left}
 .headerdiv{width: 1000px;margin: 0 auto}
-.avantilogodiv{float:left;width:243px; margin: 20px 0 20px 0}
-
+.avantilogodiv{float:left;width:243px; margin: 10px 0}
 #menu{float: right;width:570px; margin-top:85px}
 #menu ul {width:100%;float: left; margin: 0;padding: 0;list-style-type: none;}
 #menu ul li {padding: 0 0 0 38px;float: left;}
@@ -59,25 +58,25 @@ span .btnSignIn{background-color: #be2527;border: 0;padding: 3% 10%;margin-top: 
 .topicname{float: left;font-family:'rock';font-size: 19px; margin: -25% 0 0 5%; color: #fff}
 .borderradius{border-radius:3.6%;}
 .mrlast{margin-right: 0}
-.profilediv{float: right;width: 233px}
-.welcome{float: left;color: #202020;font-family:'AvenirLTStd-Light';font-size: 13px;margin: 54px 0 0 0;width: 100%;color: #212120}
-.userpicture{float: left;margin-top: 15px;}
+.profilediv{float: right;/*width: 233px*/}
+.welcome{float: left;color: #202020;font-family:'AvenirLTStd-Light';font-size: 13px;margin: 0 ;color: #212120}
+.userpicture{float: right;margin-top: 18px;}
 .username{float: left;font-family:'AvenirLTStd-Light';font-size: 28px;color: #212120 }
-.userprofile{float: left;width: 130px;padding-left: 10px;}
-.welcomemenu{cursor:pointer !important;float:left;margin: 17px 0 0 10px;}
+.userprofile{float: right;/*width: 135px;*//*padding-top: 6px;*/}
+.welcomemenu{cursor:pointer !important;float:right;margin: 15px 0 0 8px}
 .welcomemenu img{cursor:pointer !important;width:13px}
-.welcomemenu label{opacity:0;position:absolute;margin:1px 0 0 -142px !important;transition:all .70s ease-out 0}
-.welcomemenu label ul{display:none;width:160px;text-align:left;background-color:#fff;color:#000;position:relative;padding:0;list-style-type:none;border:solid 1px #a2a2a2}
-.welcomemenu label ul li{padding:5px 35px 5px 5px;border-bottom:solid 1px #a2a2a2;color:#000;font-size: 14px;font-family:'AvenirLTStd-Light'}
+.welcomemenu label{/*opacity:0;*/position:absolute;margin:8px 0 0 -143px !important;transition:all .70s ease-out 0}
+.welcomemenu label ul{/*display:none;*/width:160px;text-align:left;background-color:#fff;color:#000;position:relative;padding:0;list-style-type:none;border:solid 1px #a2a2a2}
+.welcomemenu label ul li{padding:5px 35px 5px 5px;border-bottom:solid 1px #a2a2a2;color:#000;font-size: 13px;font-family:'AvenirLTStd-Light'}
 .welcomemenu label ul li:hover{background-color:#eee;color:#000}
 .welcomemenu label ul li a{color:#000;text-decoration:none}
 .welcomemenu label ul li a:hover{color:#000;text-decoration:none}
-.welcomemenu:hover label{opacity:1}
-.welcomemenu:hover label ul{display:block}
+/*.welcomemenu:hover label{opacity:1}*/
+/*.welcomemenu:hover label ul{display:block}*/
 .searchbar{float: left;width: 100%;background-image: url("../images/searchbg.png");background-repeat: repeat-x}
-.textsearch{float: left;width: 990px;margin:12px 0;background-color: #fff;box-shadow: 2px 1px 3px -1px #c2c2c2 inset}
-.searchquery{float: left; width:974px;padding: 9px 25px 5px 32px;font-family:'AvenirLTStd-Light';font-size: 18px;color: #a09e9e;border: 0;box-shadow: 2px 1px 3px -1px #c2c2c2 inset; }
-.searchimg{float: right; margin: 12px 6px 0px -6px;}
+.textsearch{float: left;width: 990px;margin:8px 0;background-color: #fff;box-shadow: 2px 1px 3px -1px #c2c2c2 inset}
+.searchquery{float: left; width:906px;padding: 6px 25px 3px 10px;font-family:'AvenirLTStd-Light';font-size: 18px;color: #a09e9e;border: 0;box-shadow: 2px 1px 3px -1px #c2c2c2 inset; }
+.searchimg{float: right; margin: 9px 6px 0px -6px;}
 .divsearch{margin: 0 auto; width: 998px;}
 .maincontent{margin: 0 auto;width: 998px;}
 .leftdiv{float: left;width:254px;margin-top: 23px;}
@@ -87,11 +86,11 @@ span .btnSignIn{background-color: #be2527;border: 0;padding: 3% 10%;margin-top: 
 .filter{float: left;margin: 17px 0 10px 0;font-family:'AvenirLTStd-Light';font-weight: bold;font-size: 18px}
 .topics{float: left;width: 100% ;margin: 11px 0 0 0}
 .ckhtopic{float: left;width:12px}
-.topic{float: left;font-family:'AvenirLTStd-Light';font-weight: bold;margin: 4px 0 0 15px;font-size: 15px; }
+.topic{float: left;font-family:'AvenirLTStd-Light';font-weight: bold;margin: 4px 0 0 15px;font-size: 13px; }
 .checkbox{margin: 2px 0 0 1px;border: 0;box-shadow: 2px 1px 3px -1px #c2c2c2 inset;}
 .righttopdiv{float: left;width:740px }
-.select a{float: left;font-family:'AvenirLTStd-Light';font-weight: bold;margin: 14px 0 24px 20px;font-size: 15px;color: #1e1e1e}
-.topicheading{background-color: #fef051;padding: 8px 0px 8px 30px;margin-top: 25px;font-family:'AvenirLTStd-Light';font-size: 14px}
+.select a{float: left;font-family:'AvenirLTStd-Light';margin: 5px 0 24px 14px;font-size: 13px;color: #1e1e1e}
+.topicheading{background-color: #fef051;padding: 8px 0px 8px 30px;margin-top: 25px;font-family:'AvenirLTStd-Light';font-size: 13px}
 .heading{float: left;width: 35px; margin: 0 0px 0 35px;font-family:'AvenirLTStd-Light';font-size: 14px;font-weight: bold}
 /*.headingcode{float: left;width: 60px;font-family:'AvenirLTStd-Light';font-size: 14px;font-weight: bold}
 .headingtopic{float: left;width: 380px;font-family:'AvenirLTStd-Light';font-size: 14px;font-weight: bold}
@@ -101,7 +100,7 @@ span .btnSignIn{background-color: #be2527;border: 0;padding: 3% 10%;margin-top: 
 table tr td{padding: 10px 0}
 .topicdetailsbg{float: left;width: 720px;background-color: #fafafa;padding: 10px 0 10px 12px;}
 .showmore{float: left;width: 690px; border: solid 1px #f1f1f1;padding: 5px;margin-top: 13px;text-align: center;padding: 20px;font-family:'AvenirLTStd-Light';font-size: 14px}
-.showtext a{color: #d7d5d5;}
+.showtext a, showmore a{color: #d7d5d5;}
 #footerall{width:990px; float: left;border-top: 1px solid #888888;margin-top: 240px;}
 #footermenuall{float: left;width:100% ;padding-bottom:30px;margin-top: 10px;}
 #footermenuall ul {width:67%;float: left; margin: 1% 0 0 0;padding: 0;list-style-type: none;}
@@ -206,9 +205,34 @@ table tr td{padding: 10px 0}
 #pleasewait{color:#be2528;float:left;width:95%;margin:4px 0 0 0;display:none;height:15px;text-align:left;margin-bottom:5px;font-size:12px;padding:7px 0 5px;font-family: 'AvenirLTStd-Light'}
 #emsg{color:#bd2728 !important;float:left;width:95%;text-align:left;color:#fff;font-size:12px;font-family: 'AvenirLTStd-Light'}
 .columdiv{float:left;width:735px;background-color:#fff;padding:0 0 20px 0;min-height:415px}
-.ft14{font-family: 'AvenirLTStd-Light';font-size: 14px;}
+.ft14{font-family: 'AvenirLTStd-Light';font-size: 13px;}
 .title{color:#be2528}
 .black{color: #000;}
-table tr th{padding: 10px 0}
+table tr th{padding: 10px}
+table tr td{padding: 10px}
 .lightgrey{background:#fafafa}
 .white{background:#fff}
+.lessonbg{background-image: url("../images/lessonplanimg.png");background-repeat: no-repeat;width: 257px;float: left;height: 53px; }
+.lessontext{float: left;padding: 7px 0;color: #fff;font-size: 20px;width:100%;text-align: center;font-family: 'rock'};
+.wordwrap{
+  white-space: pre-wrap;      /* CSS3 */   
+  white-space: -moz-pre-wrap; /* Firefox */    
+  white-space: -pre-wrap;     /* Opera <7 */   
+  white-space: -o-pre-wrap;   /* Opera 7 */    
+  word-wrap: break-word;
+}
+.btnSIgn{padding: 5px ;cursor: pointer}
+.mt10{margin: 10px 0 0 0}
+.mt22{margin: 14px 0 0 0}
+
+
+/*---------------from old css---------------*/
+
+.headtext{width:auto;float:left;font-size:13px;margin:10px 0 0 0;font-family:'AvenirLTStd-Light';width:100%}
+.headtext a:hover,.updiv a:hover{text-decoration:underline}
+.textnone{text-decoration:none;color:#000;font-family:'AvenirLTStd-Light'}
+.updiv{float:left;width:98.5%;padding:20px 0 8px 10px;border-bottom:1px solid #ccc;font-family:'AvenirLTStd-Light';font-size:18px;background:#fff;color: #000;}
+.nexttext{color:#666;font-size:17px;text-decoration:none !important;font-family:'AvenirLTStd-Light';display:none;color: #000;}
+.preread{float:left;width:96%;font-family:helvetica;padding:10px 0 0 9px;line-height:22px}
+.preread img{max-width:705px}
+.cb{clear: both}
