@@ -3,7 +3,6 @@
     include("./classes/cor.mysql.class.php");
     include_once("./includes/checklogin.php");
 ?>
-<!DOCTYPE HTML>
 <html xml:lang="en" lang="en" itemscope="" itemtype="http://schema.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,18 +11,12 @@
     $db = new MySqlConnection(CONNSTRING);
     $db->open();
     include_once("./includes/header-meta.php");
-    
 ?>
 <script type="text/javascript" src="<?php echo __WEBROOT__;?>/js/select-batch.js"></script>
 </head>
-<body style="background: #fff;">
+<body>
     <div class="mainbody">
-	<div style="float: left;width:100%;background: #BD2728;">
-	    <div style="margin: 0 auto;width:975px;">
-		<?php include_once("./includes/header.php");?>
-	    </div>
-	</div>
-	<div class="clb"></div>
+	<?php include_once("./includes/header.php");?>
         <div class="center">
             <div class="whole mid">
                 <form id="formbatch" id="formbatch" method="post" action="<?php echo __WEBROOT__; ?>/save-batch.php" onsubmit="javascript: return _selectbatch();">
@@ -113,12 +106,12 @@
                     </table>
                 </form>
             </div>
+	    <?php
+		unset($SelmanagerBatchRS);
+		include_once("./includes/footer.php");
+		$db->close();
+	    ?>
         </div>
-        <?php
-	    unset($SelmanagerBatchRS);
-	    include_once("./includes/footer.php");
-            $db->close();
-	?>
     </div>
 </body>
 </html>
